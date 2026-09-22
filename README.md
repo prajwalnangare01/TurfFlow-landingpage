@@ -20,7 +20,7 @@ TurfFlow automates turf bookings, payments, WhatsApp conversations, and daily op
 ## 🎨 Design & Tech Stack
 
 - **Framework / UI:** HTML5 + Tailwind CSS (via CDN)
-- **Typography:** [Geist + Geist Mono](https://vercel.com/font) (Vercel) via Google Fonts
+- **Typography:** Headings: **Geist** (650/700) • Body & UI: **Inter** (400/500/600) • Numbers & Data: **Geist Mono**
 - **Icons:** [Lucide Icons](https://lucide.dev/)
 - **Mobile Responsive:** 100% responsive down to 360px viewports with zero horizontal overflow
 - **Error Handling:** Branded, sports-themed 404 page (`404.html`) with quick recovery navigation
