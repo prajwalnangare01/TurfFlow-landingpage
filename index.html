@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TurfFlow — Your Turf. Automated.</title>
+  <meta name="description" content="Automate your turf bookings, payments, WhatsApp conversations, and daily operations from one centralized platform." />
+  <link rel="icon" type="image/png" href="logo-mark.png" />
+  
+  <!-- Fonts: Geist & Geist Mono for high-precision modern SaaS interface -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Geist"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            pitch: {
+              900: '#0a1912',
+              950: '#040d09',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* Organic mesh glows and modern background accents instead of borders */
+    .bg-pitch-mesh {
+      background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.12), transparent 55%),
+                  radial-gradient(circle at 100% 40%, rgba(22, 163, 74, 0.08), transparent 45%),
+                  radial-gradient(circle at 0% 80%, rgba(34, 197, 94, 0.06), transparent 50%),
+                  #ffffff;
+    }
+    .dark-mesh {
+      background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.18), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(20, 83, 45, 0.25), transparent 60%),
+                  #07130e;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+    }
+    .glass-dark {
+      background: rgba(15, 30, 22, 0.75);
+      backdrop-filter: blur(16px);
+    }
+    /* Subtle dot pattern */
+    .pattern-dots {
+      background-image: radial-gradient(#15803d 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+      opacity: 0.15;
+    }
+    /* Animated pulse line for real-time sync */
+    @keyframes syncPulse {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+    .animate-sync-beam {
+      animation: syncPulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-brand-600 selection:text-white">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Logo -->
+        <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="flex items-center group py-1 flex-shrink-0">
+          <img src="logo-cropped.png" alt="TurfFlow — Your Turf. Automated." class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+        </a>
+
+        <!-- Desktop Navigation (Centered SaaS Bar) -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-7 text-[13px] xl:text-sm font-medium text-slate-600 mx-auto px-4">
+          <a href="#problem-solution" class="hover:text-brand-700 transition-colors whitespace-nowrap">Why TurfFlow</a>
+          <a href="#experience" class="hover:text-brand-700 transition-colors whitespace-nowrap">Channels</a>
+          <a href="#how-it-works" class="hover:text-brand-700 transition-colors whitespace-nowrap">How It Works</a>
+          <a href="#sync-demo" class="hover:text-brand-700 transition-colors whitespace-nowrap">Live Sync</a>
+          <a href="#services" class="hover:text-brand-700 transition-colors whitespace-nowrap">Features</a>
+          <a href="#dashboard" class="hover:text-brand-700 transition-colors whitespace-nowrap">Console</a>
+          <a href="#packages" class="hover:text-brand-700 transition-colors whitespace-nowrap">Pricing</a>
+          <a href="#faq" class="hover:text-brand-700 transition-colors whitespace-nowrap">FAQ</a>
+        </nav>
+
+        <!-- CTA & Contact -->
+        <div class="hidden sm:flex items-center gap-3 lg:pl-6 lg:border-l lg:border-slate-200/80 flex-shrink-0">
+          <button onclick="openDemoModal('Talk to Us')" class="text-xs xl:text-sm font-semibold text-slate-700 hover:text-brand-700 transition-colors px-2 py-1">
+            Contact
+          </button>
+          <button onclick="openDemoModal()" class="inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white text-xs xl:text-sm font-semibold shadow-sm transition-all hover:shadow-lg hover:shadow-brand-700/20 active:scale-95 whitespace-nowrap">
+            <span>Book a Demo</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 xl:w-4 xl:h-4"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-700 hover:text-slate-900 focus:outline-none rounded-xl hover:bg-slate-100 transition-colors" aria-label="Open navigation menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Sheet -->
+      <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-100 py-4 px-1 space-y-1.5 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
+        <a href="#problem-solution" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Why TurfFlow</a>
+        <a href="#experience" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Booking Channels</a>
+        <a href="#how-it-works" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">How It Works</a>
+        <a href="#sync-demo" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Live Sync & Conflict Logic</a>
+        <a href="#services" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Platform Features</a>
+        <a href="#dashboard" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Owner Console</a>
+        <a href="#packages" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Pricing & Packages</a>
+        <a href="#faq" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">FAQ</a>
+        <div class="pt-3 pb-1 px-2 flex flex-col gap-2">
+          <button onclick="openDemoModal()" class="w-full text-center px-4 py-3 rounded-full bg-brand-700 text-white font-bold text-sm shadow-md shadow-brand-700/20 active:scale-98 transition-all">Book a Demo</button>
+          <button onclick="openDemoModal('Talk to Us')" class="w-full text-center px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors">Contact TurfFlow Team</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="relative bg-pitch-mesh pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+    <!-- Background Dot Texture -->
+    <div class="absolute inset-0 pattern-dots pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Center Hero Banner -->
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        
+        <!-- Eyebrow Pill -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-800 text-xs font-bold tracking-wider uppercase shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-600 animate-ping"></span>
+          TURF BOOKING & AUTOMATION PLATFORM
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
+          Your Turf. <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-700 via-brand-600 to-emerald-500">Automated.</span>
+        </h1>
+
+        <!-- Supporting Headline -->
+        <p class="text-xl sm:text-2xl font-semibold text-slate-700 max-w-3xl mx-auto leading-snug">
+          Let customers book through WhatsApp or your website while you manage everything from one dashboard.
+        </p>
+
+        <!-- Supporting Copy -->
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+          TurfFlow brings bookings, availability, payments, customers, and day-to-day booking operations into one centralized system.
+        </p>
+
+        <!-- Primary Action Area -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3">
+          <button onclick="openDemoModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-base shadow-xl shadow-brand-700/25 transition-all hover:scale-105 active:scale-95">
+            <span>Book a Demo</span>
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+          </button>
+          
+          <a href="#packages" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-base transition-all">
+            <span>Explore Packages</span>
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Trust Line -->
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs sm:text-sm font-semibold text-slate-600">
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-brand-600"></i> First 2 months completely free</span>
+          <span class="hidden sm:inline text-slate-300">•</span>
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="credit-card" class="w-4 h-4 text-brand-600"></i> No prepayments</span>
+          <span class="hidden sm:inline text-slate-300">•</span>
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-brand-600"></i> Cancel anytime</span>
+          <span class="hidden sm:inline text-slate-300">•</span>
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="percent" class="w-4 h-4 text-brand-600"></i> 0% TurfFlow commission</span>
+        </div>
+
+        <!-- Sports Audience Badges (Horizontal Floating Pills) -->
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
+          <span class="font-medium mr-1 text-slate-400">Tailored for:</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200 text-slate-700 font-medium shadow-xs">Football Turfs</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200 text-slate-700 font-medium shadow-xs">Cricket Turfs</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200 text-slate-700 font-medium shadow-xs">Box Cricket Operators</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200 text-slate-700 font-medium shadow-xs">Sports Facility Owners</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200 text-slate-700 font-medium shadow-xs">Multi-turf Operators</span>
+        </div>
+      </div>
+
+      <!-- App Interface Hero Mockup (Full Interactive Dual Display) -->
+      <div class="mt-14 max-w-5xl mx-auto">
+        <div class="rounded-3xl bg-slate-900 p-2 sm:p-4 shadow-2xl ring-1 ring-slate-800">
+          
+          <!-- Browser Frame Window -->
+          <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80">
+            <!-- Window Titlebar -->
+            <div class="bg-slate-900/90 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                <span class="text-xs font-mono text-slate-400 ml-2 hidden sm:inline">turfflow.app / console / live-sync</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono border border-emerald-500/20">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Real-Time Sync Active
+                </span>
+              </div>
+            </div>
+
+            <!-- Mockup Content: Side-by-Side Dual View (WhatsApp Phone + Web Schedule) -->
+            <div class="grid lg:grid-cols-12 gap-0 bg-slate-900/40">
+              
+              <!-- Left Column: WhatsApp Conversational Agent -->
+              <div class="lg:col-span-5 p-5 sm:p-6 border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-950/60 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold text-white">TurfFlow Booking Agent</div>
+                        <div class="text-[10px] text-emerald-400 font-mono">WhatsApp Automation Layer</div>
+                      </div>
+                    </div>
+                    <span class="text-[10px] text-slate-400">24/7 Online</span>
+                  </div>
+
+                  <!-- Chat Messages Flow -->
+                  <div class="space-y-3 pt-4 text-xs font-normal">
+                    <div class="bg-slate-800/80 p-3 rounded-2xl rounded-tl-sm text-slate-200 max-w-[85%] border border-slate-700/50">
+                      Hi! Can we book Court 1 tonight for 8:00 PM to 9:00 PM?
+                    </div>
+
+                    <div class="bg-emerald-950/70 border border-emerald-800/50 p-3.5 rounded-2xl rounded-tr-sm text-emerald-100 ml-auto max-w-[92%] space-y-2">
+                      <p>Slot available! <strong>Tonight: 8:00 PM – 9:00 PM</strong> (Court 1 · ₹1,500).</p>
+                      <div class="p-2 rounded-xl bg-slate-900/90 border border-emerald-700/40 text-[11px] flex items-center justify-between">
+                        <div>
+                          <div class="text-amber-300 font-bold flex items-center gap-1">
+                            <i data-lucide="lock" class="w-3 h-3"></i> Temporary Hold
+                          </div>
+                          <div class="text-slate-400 text-[10px]">Held for 10 mins for payment</div>
+                        </div>
+                        <span class="px-2 py-1 rounded bg-brand-600 text-white font-bold text-[10px]">Pay via Razorpay</span>
+                      </div>
+                    </div>
+
+                    <div class="bg-emerald-900/40 border border-emerald-600/40 p-2.5 rounded-xl text-emerald-200 text-[11px] flex items-center gap-2">
+                      <i data-lucide="check-check" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+                      <span>Payment Verified · Booking Confirmed automatically</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>Customer Channel: WhatsApp</span>
+                  <span class="text-emerald-400 font-mono">0% Manual Work</span>
+                </div>
+              </div>
+
+              <!-- Right Column: Central Dashboard Schedule View -->
+              <div class="lg:col-span-7 p-5 sm:p-6 bg-slate-900/70 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                    <div>
+                      <h4 class="text-xs font-bold text-white uppercase tracking-wider">Live Facility Schedule</h4>
+                      <p class="text-[11px] text-slate-400">All channels synchronized in real time</p>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-xs font-mono font-bold text-brand-400">₹14,200</div>
+                      <div class="text-[10px] text-slate-400">Today's Collections</div>
+                    </div>
+                  </div>
+
+                  <!-- Slot Grid Visualization -->
+                  <div class="space-y-2 pt-4">
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-3">
+                        <span class="font-mono font-bold text-brand-400">06:00 PM</span>
+                        <span class="text-slate-200">Vikram M. · 7-a-side</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Booked (WhatsApp)</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-3">
+                        <span class="font-mono font-bold text-brand-400">07:00 PM</span>
+                        <span class="text-slate-200">Anand Sports Club</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">Booked (Website)</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-emerald-950/40 border border-brand-500/40 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-3">
+                        <span class="font-mono font-bold text-brand-300">08:00 PM</span>
+                        <span class="text-white font-medium">Just Confirmed · Rahul S.</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-500/20 text-brand-300 border border-brand-500/30">Auto Confirmed</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/50 border border-dashed border-slate-800 flex items-center justify-between text-xs">
+                      <div class="flex items-center gap-3">
+                        <span class="font-mono text-slate-500">09:00 PM</span>
+                        <span class="text-slate-400">Open Slot (₹1,800)</span>
+                      </div>
+                      <span class="text-[10px] text-slate-500 font-mono">Available</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>Central Owner Dashboard</span>
+                  <span class="text-slate-300 font-mono">One Source of Truth</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== THE DIFFERENCE: PROBLEM VS SOLUTION ==================== -->
+  <section id="problem-solution" class="py-24 bg-white border-b border-slate-100 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
+          Before vs. After TurfFlow
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Still managing your turf bookings manually?
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Managing a turf shouldn't mean staying glued to your phone 24/7. Here is what changes when you switch to TurfFlow:
+        </p>
+      </div>
+
+      <!-- Comparison Interface: Fluid Split Contrast (No Nested Box Grids) -->
+      <div class="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-slate-200/80 shadow-xl bg-slate-50/50">
+        
+        <!-- Desktop Header Split Strip -->
+        <div class="hidden md:grid md:grid-cols-2 text-sm font-bold border-b border-slate-200">
+          <div class="p-5 sm:px-8 bg-rose-50/60 text-rose-900 flex items-center gap-3 border-r border-rose-200/60">
+            <div class="w-8 h-8 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center font-bold">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="uppercase tracking-wider text-[11px] font-bold text-rose-600">The Problem</div>
+              <div class="text-base text-slate-900 font-extrabold">Manual Turf Coordination</div>
+            </div>
+          </div>
+
+          <div class="p-5 sm:px-8 bg-brand-50/60 text-brand-950 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-200 text-brand-800 flex items-center justify-center font-bold">
+              <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="uppercase tracking-wider text-[11px] font-bold text-brand-700">Our Solution</div>
+              <div class="text-base text-slate-900 font-extrabold">TurfFlow Automation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Comparison Summary Strip -->
+        <div class="md:hidden p-4 bg-gradient-to-r from-rose-50/90 via-slate-50 to-brand-50/90 border-b border-slate-200 flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-rose-700">
+            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+            <span>Manual Friction</span>
+          </div>
+          <span class="text-[11px] font-bold text-slate-400">vs</span>
+          <div class="flex items-center gap-1.5 text-xs font-bold text-brand-700">
+            <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+            <span>TurfFlow Automation</span>
+          </div>
+        </div>
+
+        <!-- 7 Contrasting Item Rows -->
+        <div class="divide-y divide-slate-200/70 text-sm">
+          
+          <!-- Row 1 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Endless Availability Queries</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Customers constantly messaging and asking what slots are open right now.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Instant Self-Service Discovery</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Customers check real-time open slots instantly through WhatsApp or your website anytime.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Too Many WhatsApp Chats & Calls</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Conversations scattered across endless chats and phone calls just to check slots.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Conversational WhatsApp Booking Agent</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Automated assistant handles questions, date selection, and confirmations 24/7.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Manual Booking Records</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Writing down reservations in physical diaries or spreadsheets that get outdated fast.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Single Centralized Calendar</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Every booking updates immediately across WhatsApp, the website, and owner dashboard.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Payment Screenshots & Verification</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Checking bank apps to manually confirm UPI payment screenshots before locking slots.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Automated Razorpay Checkout</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">System verifies online payment automatically before confirming and locking the reservation.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 5 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Risk of Booking Conflicts</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Two players attempting to reserve the same prime slot at the exact same time.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Smart Slot Locking</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Selected slots are held temporarily during checkout and auto-released if payment expires.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 6 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">Difficulty Tracking Players</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">No clear way to keep track of frequent customers, cancellations, and booking history.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Organized Customer Records</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Full customer profiles, past games, transaction IDs, and booking frequency in one place.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 7 -->
+          <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/70">
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-white/70">
+              <i data-lucide="minus-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 md:hidden block mb-0.5">Manual Friction</span>
+                <div class="font-bold text-slate-900 text-sm">No Centralized Revenue View</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">No clear dashboard showing daily totals, confirmed income, and turf utilization.</div>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 sm:px-8 flex items-start gap-3 bg-brand-50/25">
+              <i data-lucide="check-circle-2" class="w-4 h-4 sm:w-5 sm:h-5 text-brand-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-700 md:hidden block mb-0.5">TurfFlow Solution</span>
+                <div class="font-bold text-slate-900 text-sm">Real-Time Owner Dashboard</div>
+                <div class="text-xs text-slate-600 mt-0.5 leading-relaxed">Instant metrics for today's bookings, revenue collected, open capacity, and manual entry.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Takeaway Banner -->
+        <div class="p-6 sm:p-8 bg-brand-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="space-y-1 text-center sm:text-left">
+            <div class="text-xs font-bold text-brand-400 uppercase tracking-widest">There is a simpler way.</div>
+            <div class="text-lg sm:text-xl font-bold">TurfFlow automates the repetitive parts of your booking process.</div>
+            <div class="text-xs text-brand-200">Spend less time managing bookings and more time running your business.</div>
+          </div>
+          <button onclick="openDemoModal()" class="px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex-shrink-0 transition-transform hover:scale-105">
+            See TurfFlow in Action
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== BOOKING CHANNELS (WEBSITE + WHATSAPP) ==================== -->
+  <section id="experience" class="py-24 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+          Multi-Channel Booking
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Let customers book their way.
+        </h2>
+        <p class="text-lg text-brand-800 font-semibold">
+          Two ways to book. One centralized booking system.
+        </p>
+      </div>
+
+      <!-- Side-by-side Experience Presentation -->
+      <div class="grid lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
+        
+        <!-- Channel 1: WhatsApp Experience -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-lg shadow-emerald-600/25">
+                <i data-lucide="message-circle" class="w-7 h-7"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-slate-900">WhatsApp Booking</h3>
+                <div class="text-xs font-semibold text-emerald-700">Conversational Booking Agent</div>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600 mb-8 leading-relaxed">
+              Customers can interact directly with the TurfFlow booking agent through WhatsApp to:
+            </p>
+
+            <div class="space-y-3.5 text-sm text-slate-700">
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Check real-time slot availability</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Select match dates</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Select slots</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>View transparent pricing</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Start payment</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Receive booking confirmation</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Access booking information</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                <span>Handle supported cancellation/rescheduling requests</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+            <span>Package: TurfFlow WhatsApp & Complete</span>
+            <span class="text-emerald-700">Ready in 24h</span>
+          </div>
+        </div>
+
+        <!-- Channel 2: Online Booking Website -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-brand-700 text-white flex items-center justify-center font-bold shadow-lg shadow-brand-700/25">
+                <i data-lucide="globe" class="w-7 h-7"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-slate-900">Online Booking Website</h3>
+                <div class="text-xs font-semibold text-brand-700">Included with TurfFlow Complete</div>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600 mb-8 leading-relaxed">
+              With TurfFlow Complete, give customers a professional web booking experience:
+            </p>
+
+            <div class="space-y-3.5 text-sm text-slate-700">
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>Open the turf's booking website</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>Select a date on an interactive calendar</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>View available slots in real time</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>See prices and weekend rates</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>Select a slot in one tap</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>Pay online securely</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0"></i>
+                <span>Receive instant confirmation</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+            <span>Package: TurfFlow Complete</span>
+            <span class="text-brand-700">Custom Domain Ready</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS (10 STEPS JOURNEY TRACK) ==================== -->
+  <section id="how-it-works" class="py-24 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
+          The Customer Journey
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          From availability to confirmed booking.
+        </h2>
+        <p class="text-base text-slate-600">
+          A seamless flow designed for fast customer conversions with zero manual friction.
+        </p>
+      </div>
+
+      <!-- 10 Step Visual Roadmap Timeline -->
+      <div class="max-w-4xl mx-auto relative">
+        
+        <!-- Vertical connector line -->
+        <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-brand-600 via-brand-400 to-emerald-600 hidden sm:block"></div>
+
+        <div class="space-y-6">
+          
+          <!-- Step 01 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              01
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Choose how to book</h3>
+              <p class="text-xs text-slate-600 mt-1">Customers can use WhatsApp or the online booking website, depending on the package.</p>
+            </div>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              02
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Choose a date</h3>
+              <p class="text-xs text-slate-600 mt-1">The customer selects the date they want to play.</p>
+            </div>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              03
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">View available slots</h3>
+              <p class="text-xs text-slate-600 mt-1">TurfFlow checks the current availability and displays available time slots and prices.</p>
+            </div>
+          </div>
+
+          <!-- Step 04 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              04
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Select a slot</h3>
+              <p class="text-xs text-slate-600 mt-1">The customer chooses their preferred time.</p>
+            </div>
+          </div>
+
+          <!-- Step 05 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 border-2 border-amber-500 text-amber-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+              05
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <div class="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-700 bg-amber-100/60 px-2 py-0.5 rounded-full mb-1">
+                <i data-lucide="lock" class="w-3 h-3"></i> Conflict Protection
+              </div>
+              <h3 class="text-base font-bold text-slate-900">Temporary slot hold</h3>
+              <p class="text-xs text-slate-600 mt-1">The selected slot is temporarily held while the customer completes payment.</p>
+            </div>
+          </div>
+
+          <!-- Step 06 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              06
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Pay online</h3>
+              <p class="text-xs text-slate-600 mt-1">The customer completes payment through Razorpay.</p>
+            </div>
+          </div>
+
+          <!-- Step 07 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              07
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Payment verification</h3>
+              <p class="text-xs text-slate-600 mt-1">The payment is verified by the system automatically.</p>
+            </div>
+          </div>
+
+          <!-- Step 08 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              08
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Booking confirmed</h3>
+              <p class="text-xs text-slate-600 mt-1">The booking is confirmed and recorded in the system.</p>
+            </div>
+          </div>
+
+          <!-- Step 09 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border-2 border-brand-600 text-brand-800 font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-sm z-10 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              09
+            </div>
+            <div class="flex-1 pt-1.5 pb-3 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900">Owner gets the booking</h3>
+              <p class="text-xs text-slate-600 mt-1">The confirmed booking appears in the owner's dashboard instantly.</p>
+            </div>
+          </div>
+
+          <!-- Step 10 -->
+          <div class="flex items-start gap-6 group">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center flex-shrink-0 shadow-md z-10">
+              10
+            </div>
+            <div class="flex-1 pt-1.5">
+              <h3 class="text-base font-bold text-slate-900">Customer receives confirmation</h3>
+              <p class="text-xs text-slate-600 mt-1">The customer receives their booking details through the relevant channel.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CENTRALIZED SYSTEM & REAL-TIME SYNC ==================== -->
+  <section id="sync-demo" class="py-24 dark-mesh text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-bold uppercase tracking-wider border border-brand-500/20">
+          Centralized Architecture
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          One booking system. Every channel stays in sync.
+        </h2>
+        <p class="text-base text-slate-300 max-w-xl mx-auto">
+          No separate booking records. No disconnected availability. One source of truth.
+        </p>
+      </div>
+
+      <!-- Live Scenario Showcase Card -->
+      <div class="max-w-5xl mx-auto bg-slate-900/90 rounded-3xl border border-slate-800 p-6 sm:p-10 shadow-2xl">
+        
+        <!-- Scenario Trigger -->
+        <div class="text-center pb-8 border-b border-slate-800">
+          <span class="text-[11px] font-mono uppercase tracking-widest text-brand-400 bg-brand-950 px-3 py-1 rounded-full border border-brand-800">Live Scenario Example</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 text-white">
+            "A customer books the 8 PM slot through the website."
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">That slot is immediately reflected as booked across your entire business:</p>
+        </div>
+
+        <!-- 3 Pillars of Synchronization -->
+        <div class="grid md:grid-cols-3 gap-6 pt-8">
+          
+          <div class="p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/20">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white">WhatsApp Availability</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Instantly removed from available choices in automated WhatsApp chats.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto border border-blue-500/20">
+              <i data-lucide="globe" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white">Website Availability</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Immediately updated as booked on the public web calendar for all visitors.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center mx-auto border border-brand-500/20">
+              <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white">Owner Dashboard</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Booking details, player contact, and verified payment appear on your screen.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="mt-8 text-center text-xs text-slate-400 border-t border-slate-800 pt-6">
+          Likewise, if a customer books through WhatsApp, the website and dashboard reflect the same booking.
+        </div>
+
+      </div>
+
+      <!-- Double-Booking Protection Logic Sub-section -->
+      <div class="mt-16 max-w-4xl mx-auto text-center space-y-6">
+        <h3 class="text-2xl font-bold">Built to protect your slots.</h3>
+        <p class="text-sm text-slate-300 max-w-2xl mx-auto">
+          TurfFlow uses centralized booking logic and temporary slot holds to reduce booking conflicts.
+        </p>
+
+        <!-- Dynamic State Machine Diagram (Responsive on mobile & desktop) -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-4">Slot State Flow</div>
+          
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs font-bold font-mono">
+            <span class="w-full sm:w-auto px-4 py-2 rounded-xl bg-slate-800 text-slate-200 text-center">Available</span>
+            <i data-lucide="arrow-down" class="sm:hidden w-4 h-4 text-slate-500"></i>
+            <i data-lucide="arrow-right" class="hidden sm:inline w-4 h-4 text-slate-500"></i>
+            <span class="w-full sm:w-auto px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-center">Temporary Hold</span>
+            <i data-lucide="arrow-down" class="sm:hidden w-4 h-4 text-slate-500"></i>
+            <i data-lucide="arrow-right" class="hidden sm:inline w-4 h-4 text-slate-500"></i>
+            <span class="w-full sm:w-auto px-4 py-2 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-500/30 text-center">Payment In Progress</span>
+            <i data-lucide="arrow-down" class="sm:hidden w-4 h-4 text-slate-500"></i>
+            <i data-lucide="arrow-right" class="hidden sm:inline w-4 h-4 text-slate-500"></i>
+            <span class="w-full sm:w-auto px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-center">Confirmed</span>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-slate-800/80 text-xs text-slate-400 leading-relaxed">
+            <span class="block sm:inline">If payment is not completed within allowed window:</span>
+            <div class="flex flex-wrap items-center justify-center gap-1.5 font-mono text-[11px] sm:text-xs mt-2">
+              <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300">Temporary Hold</span>
+              <span class="text-slate-500">→</span>
+              <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400">Expired</span>
+              <span class="text-slate-500">→</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Available Again</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-400">
+          Website bookings, WhatsApp bookings, and owner-created bookings use the same booking system.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PLATFORM SERVICES & BENTO SHOWCASE ==================== -->
+  <section id="services" class="py-24 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
+          Complete Operational Suite
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Everything you need to manage turf bookings.
+        </h2>
+        <p class="text-base text-slate-600">
+          Built specifically for sports facility operators. Everything you need, cleanly organized into three core pillars:
+        </p>
+      </div>
+
+      <!-- Bento-Style Feature Grouping (Breaks up the 13 repetitive cards) -->
+      <div class="max-w-6xl mx-auto space-y-12">
+        
+        <!-- Pillar 1: Automated Booking Channels -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-3 h-3 rounded-full bg-brand-600"></span>
+            <h3 class="text-lg font-extrabold text-slate-900 uppercase tracking-wider">1. Booking Channels & Slot Discovery</h3>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">WhatsApp Booking Agent</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Automate customer conversations and booking requests through WhatsApp.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Online Booking Website</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Give customers a professional online booking experience for your facility.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Real-Time Availability</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Show current slot availability across supported booking channels.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Slot Management & Conflict Protection -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <h3 class="text-lg font-extrabold text-slate-900 uppercase tracking-wider">2. Slot Intelligence & Payments</h3>
+          </div>
+
+          <div class="grid md:grid-cols-4 gap-6">
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="sliders" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Slot Management</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Create, edit, block, and manage available slots.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="lock" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Smart Slot Locking</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Temporarily hold a slot while payment is being completed.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="credit-card" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Online Payments</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Accept online payments through Razorpay integration.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Cancellation Management</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Handle cancellations according to the turf's configured policy.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Operations & Business Control -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+            <h3 class="text-lg font-extrabold text-slate-900 uppercase tracking-wider">3. Operations, Customers & Revenue</h3>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Owner Dashboard</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Manage bookings, customers, slots, payments, and business information from one place.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="trending-up" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Revenue Tracking</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">View booking and payment activity to understand your business performance.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="users" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Customer Management</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Keep customer details and booking history organized in one centralized view.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Booking Management</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Manage confirmed, pending, cancelled, expired, and other booking states.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="plus-circle" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Manual Booking</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Allow the owner to create bookings directly from the dashboard for walk-in players.</p>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-lg transition-all">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mb-4">
+                <i data-lucide="bell" class="w-5 h-5"></i>
+              </div>
+              <h4 class="text-base font-bold text-slate-900 mb-1">Notifications</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">Send relevant booking and payment updates to customers automatically.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== OWNER DASHBOARD & CONTROL ==================== -->
+  <section id="dashboard" class="py-24 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Intro -->
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+          Owner Console
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Your turf business at a glance.
+        </h2>
+        <p class="text-base text-slate-600">
+          Everything your team needs to manage bookings, without switching between multiple tools.
+        </p>
+      </div>
+
+      <!-- Unified Interactive Dashboard Showcase -->
+      <div class="max-w-5xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+        
+        <!-- Dashboard Header Navigation Bar -->
+        <div class="p-6 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <img src="logo-mark.png" alt="TurfFlow" class="w-10 h-10 object-contain p-1 rounded-xl bg-slate-800 border border-slate-700/60" />
+            <div>
+              <div class="text-base font-extrabold text-white">TurfFlow Facility Console</div>
+              <div class="text-xs text-slate-400">Green Arena Complex · Court 1 & 2</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-medium border border-emerald-500/30">System Status: Live</span>
+          </div>
+        </div>
+
+        <!-- Dashboard Metrics Row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-100 border-b border-slate-100 text-center p-4">
+          <div class="p-3">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Today's Bookings</div>
+            <div class="text-2xl font-black text-slate-900 mt-1">11 Slots</div>
+          </div>
+          <div class="p-3">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Upcoming Bookings</div>
+            <div class="text-2xl font-black text-slate-900 mt-1">34 Slots</div>
+          </div>
+          <div class="p-3">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Available Capacity</div>
+            <div class="text-2xl font-black text-emerald-600 mt-1">3 Open</div>
+          </div>
+          <div class="p-3">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Today's Revenue</div>
+            <div class="text-2xl font-black text-brand-700 mt-1">₹16,500</div>
+          </div>
+        </div>
+
+        <!-- Dashboard Feature & Control Area -->
+        <div class="p-6 sm:p-8 space-y-8">
+          
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 mb-4">
+              <h3 class="text-base font-bold text-slate-900">Visibility & Control Hub</h3>
+              <span class="text-xs text-brand-700 font-semibold">Automation handles repetitive work. You stay in control.</span>
+            </div>
+            
+            <!-- Sleek Control Tags List (No chunky boxes) -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 text-xs text-slate-700">
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Turf Information:</span> Ground details, court names, and facility rules.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Operating Hours:</span> Weekday & weekend opening and closing times.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Slot Duration & Pricing:</span> Standard intervals, morning, peak, and night pricing.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Weekend Pricing:</span> Custom surge rates on Saturdays and Sundays.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Blocked Slots & Holidays:</span> Blackout hours for maintenance, coaching, or tournaments.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Manual Bookings:</span> Enter reservations for walk-in players or phone bookings.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Customer Records:</span> Player contact details, booking history, and frequency.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Payment Status:</span> Filter between paid, pending, verified, or expired transactions.
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-brand-600 flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <span class="font-bold text-slate-900">Cancellation Rules:</span> Define customized refund terms and cutoff windows.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PAYMENT INTEGRATION ==================== -->
+  <section class="py-20 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-14">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
+          Frictionless Checkout
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Make online payments part of the booking flow.
+        </h2>
+        <p class="text-base text-slate-600">
+          Customers select a slot, proceed to payment through Razorpay, and the booking is confirmed after successful payment verification.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <i data-lucide="credit-card" class="w-4 h-4 text-brand-700"></i> Razorpay Integration
+          </div>
+          <p class="text-xs text-slate-600">Accept online payments through Razorpay with industry-standard gateway reliability.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-brand-700"></i> Payment Verification
+          </div>
+          <p class="text-xs text-slate-600">System verifies transactions before locking confirmed slot allocations.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <i data-lucide="activity" class="w-4 h-4 text-brand-700"></i> Status Tracking
+          </div>
+          <p class="text-xs text-slate-600">Live payment status tracking across verified, pending, and expired transactions.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <i data-lucide="link" class="w-4 h-4 text-brand-700"></i> Booking Association
+          </div>
+          <p class="text-xs text-slate-600">Direct booking and payment association for clean bookkeeping and reconciliation.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 sm:col-span-2">
+          <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+            <i data-lucide="receipt" class="w-4 h-4 text-brand-700"></i> Dashboard Payment Records
+          </div>
+          <p class="text-xs text-slate-600">Complete payment records inside your owner dashboard without cross-checking bank screenshots.</p>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-xs text-slate-500 font-medium">
+        Important Note: Razorpay transaction charges are separate from TurfFlow software pricing.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PACKAGES & PRICING ==================== -->
+  <section id="packages" class="py-24 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Intro -->
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+          Transparent Pricing
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Choose the setup that fits your turf.
+        </h2>
+        <p class="text-base text-slate-600">
+          Simple monthly pricing with zero TurfFlow per-booking commission.
+        </p>
+      </div>
+
+      <!-- 2 Months Free Guarantee Banner -->
+      <div class="max-w-4xl mx-auto mb-12 rounded-3xl bg-gradient-to-r from-brand-950 via-pitch-900 to-brand-900 p-8 sm:p-10 text-white text-center shadow-xl border border-brand-800/40 relative overflow-hidden">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-500/20 text-brand-300 border border-brand-400/30 text-xs font-extrabold uppercase tracking-wider">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-300"></i>
+          <span>Zero-Risk Introductory Offer</span>
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold mt-3 tracking-tight">Completely free for the first 2 months.</h3>
+        <p class="text-brand-200 text-sm sm:text-base mt-2 max-w-xl mx-auto leading-relaxed">
+          Full software access with zero software fees for 60 days. No prepayments, no advance payment requirements, and cancel anytime with zero lock-in.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-brand-100">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> First 2 Months: ₹0 Fee
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> No Prepayments
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Cancel Anytime
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> 0% TurfFlow Commission
+          </span>
+        </div>
+      </div>
+
+      <!-- Two Pricing Packages (Refined SaaS Cards) -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Package 1: TurfFlow WhatsApp -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider">
+              <span>Package 1</span>
+              <span>WhatsApp Only</span>
+            </div>
+            
+            <h3 class="text-2xl font-black text-slate-900 mt-2">TurfFlow WhatsApp</h3>
+            <p class="text-sm font-semibold text-brand-700 mt-1">Your WhatsApp, now your booking agent.</p>
+            
+            <div class="mt-6 pb-6 border-b border-slate-100">
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-black text-slate-900">₹999</span>
+                <span class="text-sm text-slate-500">/ month</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-800 bg-brand-50 border border-brand-200/80 px-2.5 py-1 rounded-lg mt-2">
+                <i data-lucide="gift" class="w-3.5 h-3.5 text-brand-600"></i>
+                <span>₹0 software fee for the first 2 months</span>
+              </div>
+              <div class="flex items-center gap-3 text-[11px] text-slate-500 font-medium mt-2">
+                <span class="inline-flex items-center gap-1"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> No prepayments</span>
+                <span>•</span>
+                <span class="inline-flex items-center gap-1"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> Cancel anytime</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-3 leading-relaxed">
+                For turf owners who want automated WhatsApp booking without a customer-facing website.
+              </p>
+            </div>
+
+            <!-- Features -->
+            <div class="py-6 space-y-2.5 text-xs text-slate-700">
+              <div class="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-2">What is included:</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> WhatsApp booking agent</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Real-time availability</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Slot management</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Temporary slot locking</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Razorpay payments</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Booking confirmation</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Booking management</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Customer management</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Payment management</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Revenue tracking</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Manual bookings</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Notifications</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Owner dashboard</div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Managed maintenance and technical support</div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-50 text-[11px] text-slate-600">
+              <span class="font-bold text-slate-900">Customer Journey:</span><br />
+              WhatsApp → Booking Agent → Slot → Payment → Confirmation
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button onclick="openDemoModal('TurfFlow WhatsApp')" class="w-full py-3.5 px-6 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-all shadow-sm">
+              Get Started Free for 2 Months
+            </button>
+          </div>
+        </div>
+
+        <!-- Package 2: TurfFlow Complete -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border-2 border-brand-600 shadow-xl flex flex-col justify-between relative">
+          <div class="absolute -top-3.5 right-8 px-4 py-1 rounded-full bg-brand-600 text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm">
+            Most Popular
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs font-bold text-brand-700 uppercase tracking-wider">
+              <span>Package 2</span>
+              <span>Website + WhatsApp</span>
+            </div>
+            
+            <h3 class="text-2xl font-black text-slate-900 mt-2">TurfFlow Complete</h3>
+            <p class="text-sm font-semibold text-brand-700 mt-1">Website + WhatsApp + Dashboard.</p>
+            
+            <div class="mt-6 pb-6 border-b border-slate-100">
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-black text-slate-900">₹2,499</span>
+                <span class="text-sm text-slate-500">/ month</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-800 bg-brand-50 border border-brand-200/80 px-2.5 py-1 rounded-lg mt-2">
+                <i data-lucide="gift" class="w-3.5 h-3.5 text-brand-600"></i>
+                <span>₹0 software fee for the first 2 months</span>
+              </div>
+              <div class="flex items-center gap-3 text-[11px] text-slate-500 font-medium mt-2">
+                <span class="inline-flex items-center gap-1"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> No prepayments</span>
+                <span>•</span>
+                <span class="inline-flex items-center gap-1"><i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> Cancel anytime</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-3 leading-relaxed">
+                For turf owners who want a complete online booking experience with both a dedicated website and WhatsApp.
+              </p>
+            </div>
+
+            <!-- Features -->
+            <div class="py-6 space-y-2.5 text-xs text-slate-700">
+              <div class="font-bold text-brand-900 uppercase tracking-wider text-[11px] mb-2">Everything in WhatsApp package, plus:</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Customer booking website</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Website booking</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Website + WhatsApp availability synchronization</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Online customer booking experience</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Customer booking history</div>
+              <div class="flex items-center gap-2 font-medium text-slate-900"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Unified booking experience</div>
+              <div class="flex items-center gap-2 text-slate-500"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Plus all 14 features of TurfFlow WhatsApp</div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-brand-50 text-[11px] text-brand-900">
+              <span class="font-bold text-brand-950">Customer Journey:</span><br />
+              Website / WhatsApp → TurfFlow → Payment → Confirmation
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button onclick="openDemoModal('TurfFlow Complete')" class="w-full py-3.5 px-6 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md shadow-brand-700/20 transition-all">
+              Get Started with Complete
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pricing Disclaimers -->
+      <div class="mt-10 max-w-3xl mx-auto text-center space-y-1.5 text-xs text-slate-500">
+        <p class="font-bold text-slate-800">TurfFlow does not charge a per-booking software commission (0% commission).</p>
+        <p>Third-party charges such as payment gateway fees, hosting/infrastructure costs, and other external service costs may apply separately depending on usage and configuration.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PACKAGE COMPARISON TABLE ==================== -->
+  <section class="py-24 bg-white border-b border-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center space-y-3 mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Package Comparison
+        </h2>
+        <p class="text-sm text-slate-600">
+          Compare features side-by-side to choose the right fit.
+        </p>
+      </div>
+
+      <!-- Clean Minimal Table (No boxy clutter) -->
+      <div class="sm:hidden text-center text-xs font-semibold text-slate-500 mb-3 flex items-center justify-center gap-1.5 bg-slate-50 py-2 rounded-xl border border-slate-200/80">
+        <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 text-brand-600"></i>
+        <span>Swipe left & right to compare all details</span>
+      </div>
+      <div class="overflow-x-auto rounded-2xl border border-slate-200/60 sm:border-0">
+        <table class="w-full text-left text-sm min-w-[500px]">
+          <thead>
+            <tr class="border-b-2 border-slate-900 text-xs font-bold uppercase tracking-wider text-slate-900">
+              <th class="py-4 px-4">Feature</th>
+              <th class="py-4 px-4 text-center">TurfFlow WhatsApp</th>
+              <th class="py-4 px-4 text-center text-brand-700">TurfFlow Complete</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="py-3 px-4 font-medium text-slate-800">WhatsApp Booking Agent</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Online Booking Website</td><td class="py-3 px-4 text-center text-slate-400">No</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Website Booking</td><td class="py-3 px-4 text-center text-slate-400">No</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">WhatsApp Booking</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Real-Time Availability</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Slot Management</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Temporary Slot Locking</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Razorpay Payments</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Booking Confirmation</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Customer Management</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Payment Management</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Revenue Tracking</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Manual Booking</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Owner Dashboard</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Automated Notifications</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Centralized Booking System</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Yes</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">First 2 Months Software Fee</td><td class="py-3 px-4 text-center text-emerald-700 font-extrabold">₹0 (Completely Free)</td><td class="py-3 px-4 text-center text-emerald-700 font-extrabold">₹0 (Completely Free)</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Prepayment Required</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">None (₹0 Upfront)</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">None (₹0 Upfront)</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Lock-in / Commitment</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Cancel Anytime</td><td class="py-3 px-4 text-center text-emerald-700 font-bold">Cancel Anytime</td></tr>
+            <tr><td class="py-3 px-4 font-medium text-slate-800">Standard Monthly Fee (After 60 Days)</td><td class="py-3 px-4 text-center text-slate-900 font-bold">₹999 / mo</td><td class="py-3 px-4 text-center text-slate-900 font-bold">₹2,499 / mo</td></tr>
+            <tr class="font-bold border-t-2 border-slate-900 bg-slate-50"><td class="py-3.5 px-4 text-slate-900">TurfFlow Booking Commission</td><td class="py-3.5 px-4 text-center text-emerald-700 font-extrabold">0%</td><td class="py-3.5 px-4 text-center text-emerald-700 font-extrabold">0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ONBOARDING & MANAGED CARE ==================== -->
+  <section class="py-24 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid lg:grid-cols-2 gap-16 items-start max-w-6xl mx-auto">
+        
+        <!-- Left: Setup Roadmap -->
+        <div>
+          <div class="text-xs font-bold text-brand-700 uppercase tracking-wider mb-2">Onboarding Roadmap</div>
+          <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
+            Get your turf online in a few steps.
+          </h2>
+          <p class="text-sm text-slate-600 mb-8">
+            We handle the setup so you can start taking automated bookings right away.
+          </p>
+
+          <div class="space-y-4 text-sm">
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">1</span>
+              <div>
+                <strong class="text-slate-900 block">Tell us about your turf</strong>
+                <span class="text-xs text-slate-600">We collect your turf information, timings, slots, pricing, and business requirements.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">2</span>
+              <div>
+                <strong class="text-slate-900 block">Choose your package</strong>
+                <span class="text-xs text-slate-600">Select TurfFlow WhatsApp or TurfFlow Complete.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">3</span>
+              <div>
+                <strong class="text-slate-900 block">We configure your system</strong>
+                <span class="text-xs text-slate-600">We configure the booking system, dashboard, slots, pricing, and required integrations.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">4</span>
+              <div>
+                <strong class="text-slate-900 block">Connect WhatsApp and payments</strong>
+                <span class="text-xs text-slate-600">We set up the required WhatsApp automation and Razorpay payment flow.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">5</span>
+              <div>
+                <strong class="text-slate-900 block">Test the system</strong>
+                <span class="text-xs text-slate-600">We verify booking, availability, payment, and confirmation flows.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-brand-600 text-white font-mono text-xs flex items-center justify-center font-bold flex-shrink-0">6</span>
+              <div>
+                <strong class="text-slate-900 block">Go live</strong>
+                <span class="text-xs text-slate-600">Your TurfFlow system is ready for customers.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Managed Maintenance & Support -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+          <div class="text-xs font-bold text-brand-700 uppercase tracking-wider mb-2">Hands-Free Maintenance</div>
+          <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight mb-4">
+            We handle the technology. You run the turf.
+          </h3>
+          <p class="text-xs text-slate-600 mb-6">
+            Included managed support covers your ongoing operational peace of mind:
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 text-xs text-slate-700">
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Initial setup</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> System configuration</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> WhatsApp setup</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Payment integration setup</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Database setup</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Deployment</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Bug fixes</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> System maintenance</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Integration maintenance</div>
+            <div class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Technical support</div>
+          </div>
+
+          <p class="text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-100">
+            New features, major customizations, and additional integrations can be scoped separately.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== WHO IS TURFFLOW FOR? ==================== -->
+  <section class="py-20 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-14">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+          Built for modern turf businesses.
+        </h2>
+        <p class="text-sm text-slate-600">Designed for sports operators of every scale:</p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 max-w-4xl mx-auto text-sm font-semibold">
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Single turf owners</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Multiple turf operators</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Football turfs</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Cricket turfs</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Box cricket facilities</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Sports complexes</span>
+        <span class="px-5 py-2.5 rounded-full bg-slate-100 text-slate-800">Growing sports facilities</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ACCORDION ==================== -->
+  <section id="faq" class="py-24 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+          Clear Answers
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-base text-slate-600">
+          Everything you need to know about TurfFlow, our packages, and setup.
+        </p>
+      </div>
+
+      <!-- FAQ List (Bordered Dividers, Not Clunky Boxes) -->
+      <div class="divide-y divide-slate-200 border-y border-slate-200" id="faqAccordion">
+        
+        <!-- Q1 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>What is TurfFlow?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            TurfFlow is a turf booking and automation platform that brings slot availability, WhatsApp inquiries, online website reservations, online payments, customer records, and day-to-day operations into one centralized system.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>What is the difference between the two packages?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            <strong>TurfFlow WhatsApp</strong> (₹999/mo) provides automated WhatsApp booking, slot locking, payments, and an owner dashboard without a customer-facing website.<br /><br />
+            <strong>TurfFlow Complete</strong> (₹2,499/mo) includes everything in the WhatsApp package plus a dedicated customer booking website, web booking functionality, and synchronized website-WhatsApp availability.
+          </div>
+        </div>
+
+        <!-- 2 Months Free & Cancellation FAQ -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>How does the 2 months free offer work? Are there any prepayments?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed space-y-2">
+            <p>
+              Both <strong>TurfFlow WhatsApp</strong> and <strong>TurfFlow Complete</strong> are <strong>completely free for your first 2 months (60 days)</strong> with ₹0 software fees.
+            </p>
+            <p>
+              <strong>Zero prepayments:</strong> You do not pay any upfront setup fees or advance software charges to start taking bookings.
+            </p>
+            <p>
+              <strong>Cancel anytime:</strong> There are no long-term contracts or lock-in commitments. You can cancel at any time with complete flexibility.
+            </p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Do I need a website?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            A customer-facing website is included only in TurfFlow Complete. TurfFlow WhatsApp can operate completely without one.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Can customers book through WhatsApp?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes. Customers can interact with the TurfFlow booking agent directly on WhatsApp to check availability, select dates, select slots, view pricing, pay, and receive booking confirmations.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Can customers book through the website?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes, with TurfFlow Complete. Players can open your turf's booking website, pick dates and slots, and pay online.
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Do website and WhatsApp share availability?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes. They use the same centralized booking system. When a slot is booked on one channel, it is immediately updated across both channels and the owner dashboard.
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>How does TurfFlow handle temporary slot holds?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            A selected slot is temporarily held while payment is being completed. If payment is not completed within the allowed payment window, the hold expires and the slot becomes available again for other players.
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Can I manually create bookings?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes, through the owner dashboard. You can add walk-in games or phone bookings directly, keeping your calendar updated everywhere.
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Can I change slot prices?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes, through the owner management system. You can adjust standard slot pricing, weekend rates, and custom hours.
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Does TurfFlow charge booking commission?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            No. TurfFlow software does not charge a per-booking commission (0% commission). Third-party payment gateway fees are separate.
+          </div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Are payment gateway fees included?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            No. Razorpay transaction charges are separate from TurfFlow software pricing and are handled directly by the payment gateway.
+          </div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Is maintenance included?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Managed maintenance and technical support are included according to the selected package. Major new features and custom development are handled separately.
+          </div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="py-5">
+          <button class="faq-btn w-full text-left font-bold text-slate-900 flex justify-between items-center text-base focus:outline-none hover:text-brand-700 transition-colors">
+            <span>Can I request custom features?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden pt-3 text-sm text-slate-600 leading-relaxed">
+            Yes. Custom features and additional integrations can be discussed and scoped separately.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FINAL CTA ==================== -->
+  <section class="py-28 dark-mesh text-white relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30 text-xs font-bold uppercase tracking-wider">
+        Ready When You Are
+      </div>
+
+      <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+        Ready to automate your turf?
+      </h2>
+
+      <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Give your customers a faster way to book and give yourself a simpler way to manage your turf.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <button onclick="openDemoModal()" class="w-full sm:w-auto px-9 py-4 rounded-full bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-base shadow-xl shadow-brand-600/30 transition-all hover:scale-105 active:scale-95">
+          Book a Demo
+        </button>
+        <button onclick="openDemoModal('Talk to Us')" class="w-full sm:w-auto px-9 py-4 rounded-full bg-slate-800/80 hover:bg-slate-800 text-slate-200 font-bold text-base border border-slate-700 transition-all">
+          Talk to Us
+        </button>
+      </div>
+
+      <div class="pt-8 text-xs font-semibold text-brand-300 tracking-wider uppercase">
+        WhatsApp Automation · Online Booking · Payments · Dashboard
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-pitch-950 text-slate-400 py-16 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-900">
+        
+        <!-- Brand -->
+        <div class="space-y-2 text-center md:text-left">
+          <a href="#hero" class="inline-block group">
+            <img src="logo-white.png" alt="TurfFlow — Your Turf. Automated." class="h-10 sm:h-11 w-auto object-contain mx-auto md:mx-0 transition-transform group-hover:scale-105" />
+          </a>
+          <p class="text-xs text-slate-400 font-medium max-w-xs">Turf booking, WhatsApp automation & facility operations platform.</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-300">
+          <a href="#hero" class="hover:text-white transition-colors">Product</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#services" class="hover:text-white transition-colors">Services</a>
+          <a href="#packages" class="hover:text-white transition-colors">Packages</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          <a href="javascript:void(0)" onclick="openDemoModal('Contact')" class="hover:text-white transition-colors">Contact</a>
+        </nav>
+
+        <!-- Footer CTA -->
+        <div>
+          <button onclick="openDemoModal()" class="px-5 py-2.5 rounded-full bg-brand-700 hover:bg-brand-600 text-white text-xs font-bold transition-colors">
+            Book a Demo
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 text-center text-xs text-slate-600">
+        © 2026 TurfFlow. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== DEMO MODAL ==================== -->
+  <div id="demoModal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md items-center justify-center p-3 sm:p-4 overflow-y-auto" style="display: none;">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative my-auto max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-150">
+      
+      <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none" aria-label="Close modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-6">
+        <div class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1">Schedule a Consultation</div>
+        <h3 class="text-2xl font-extrabold text-slate-900" id="modalTitle">Book a Demo</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          See how TurfFlow automates slot availability, WhatsApp chats, and payments for your facility.
+        </p>
+        <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-[11px] font-bold text-brand-800">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i>
+          <span>First 2 months completely free · No prepayments · Cancel anytime</span>
+        </div>
+      </div>
+
+      <form id="demoForm" onsubmit="handleDemoSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Your Name</label>
+          <input type="text" required placeholder="e.g. Ramesh Patel" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Turf / Facility Name</label>
+          <input type="text" required placeholder="e.g. Champions Arena Turf" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp</label>
+            <input type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sport Type</label>
+            <select class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+              <option>Football Turf</option>
+              <option>Cricket Turf</option>
+              <option>Box Cricket</option>
+              <option>Multi-Sport Complex</option>
+              <option>Other Facility</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Interested Package</label>
+          <select id="packageSelect" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+            <option value="TurfFlow WhatsApp">TurfFlow WhatsApp (₹999/mo · 2 Months Free)</option>
+            <option value="TurfFlow Complete">TurfFlow Complete (₹2,499/mo · 2 Months Free)</option>
+            <option value="Undecided">Help me choose the right package</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 px-4 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md transition-all">
+          Request Walkthrough Demo
+        </button>
+
+        <p class="text-[11px] text-center text-slate-400">
+          No obligation · 60 days completely free · Cancel anytime
+        </p>
+      </form>
+
+      <!-- Confirmation Toast -->
+      <div id="formSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <i data-lucide="check" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-lg font-bold text-slate-900">Demo Request Received!</h4>
+        <p class="text-xs text-slate-600 max-w-xs mx-auto">
+          Thank you. Our team will reach out via WhatsApp/phone to coordinate your TurfFlow preview and system setup.
+        </p>
+        <button onclick="closeDemoModal()" class="px-6 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPT ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // FAQ Accordion Toggle
+    document.querySelectorAll('.faq-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('[data-lucide="chevron-down"]');
+        const isOpen = !content.classList.contains('hidden');
+        
+        // Close other FAQs
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
+
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          if (icon) icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // Demo Modal Handlers
+    const modal = document.getElementById('demoModal');
+    const packageSelect = document.getElementById('packageSelect');
+    const modalTitle = document.getElementById('modalTitle');
+    const demoForm = document.getElementById('demoForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    function openDemoModal(packageName) {
+      modal.style.display = 'flex';
+      demoForm.classList.remove('hidden');
+      formSuccess.classList.add('hidden');
+      demoForm.reset();
+
+      if (packageName && packageSelect) {
+        if (packageName === 'Talk to Us' || packageName === 'Contact') {
+          modalTitle.textContent = 'Contact TurfFlow Team';
+        } else {
+          modalTitle.textContent = 'Book a Demo';
+          if (packageName.includes('WhatsApp')) {
+            packageSelect.value = 'TurfFlow WhatsApp';
+          } else if (packageName.includes('Complete')) {
+            packageSelect.value = 'TurfFlow Complete';
+          }
+        }
+      }
+      lucide.createIcons();
+    }
+
+    function closeDemoModal() {
+      modal.style.display = 'none';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDemoModal();
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeDemoModal();
+    });
+
+    function handleDemoSubmit(e) {
+      e.preventDefault();
+      demoForm.classList.add('hidden');
+      formSuccess.classList.remove('hidden');
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
