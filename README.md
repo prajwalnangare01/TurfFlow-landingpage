@@ -23,7 +23,8 @@ TurfFlow automates turf bookings, payments, WhatsApp conversations, and daily op
 - **Typography:** [Geist + Geist Mono](https://vercel.com/font) (Vercel) via Google Fonts
 - **Icons:** [Lucide Icons](https://lucide.dev/)
 - **Mobile Responsive:** 100% responsive down to 360px viewports with zero horizontal overflow
-- **Hosting / Deployment:** Configured for one-click deployment on [Vercel](https://vercel.com) via `vercel.json`
+- **Error Handling:** Branded, sports-themed 404 page (`404.html`) with quick recovery navigation
+- **Hosting / Deployment:** Configured for one-click deployment on [Vercel](https://vercel.com) via `vercel.json` with clean URLs and security headers
 
 ---
 
