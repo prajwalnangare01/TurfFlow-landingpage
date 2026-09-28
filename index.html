@@ -2083,10 +2083,9 @@
 
     // ========================================================
     // WhatsApp Redirection Configuration
-    // Update TURFFLOW_WHATSAPP_NUMBER with your official business WhatsApp number (with country code, no + or spaces)
-    // E.g., "919876543210" for India (+91)
+    // Official business WhatsApp number (with country code, no + or spaces)
     // ========================================================
-    const TURFFLOW_WHATSAPP_NUMBER = "919876543210";
+    const TURFFLOW_WHATSAPP_NUMBER = "919579158374";
     let isDemoMode = true;
 
     function openDemoModal(packageName) {
@@ -2261,16 +2260,21 @@
     document.querySelectorAll('.faq-btn').forEach(button => {
       button.addEventListener('click', () => {
         const content = button.nextElementSibling;
-        const icon = button.querySelector('[data-lucide="chevron-down"]');
+        const icon = button.querySelector('svg, i');
         const isOpen = !content.classList.contains('hidden');
         
-        // Close other FAQs
+        // Close all FAQs and rotate all arrows back to default (0deg)
         document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-        document.querySelectorAll('.faq-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
+        document.querySelectorAll('.faq-btn svg, .faq-btn i').forEach(el => {
+          el.style.transform = 'rotate(0deg)';
+        });
 
+        // If the clicked FAQ was closed, open it and rotate arrow to 180deg
         if (!isOpen) {
           content.classList.remove('hidden');
-          if (icon) icon.style.transform = 'rotate(180deg)';
+          if (icon) {
+            icon.style.transform = 'rotate(180deg)';
+          }
         }
       });
     });
