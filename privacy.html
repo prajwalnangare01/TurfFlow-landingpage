@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — TurfFlow</title>
+  <meta name="description" content="TurfFlow Privacy Policy. Learn how we collect, safeguard, and process data for sports venue owners and players." />
+  <link rel="icon" type="image/png" href="logo-mark.png" />
+  
+  <!-- Fonts: Geist (Headings), Inter (Body & UI), Geist Mono (Numbers & Dashboard) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            heading: ['"Geist"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+            mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          fontWeight: {
+            heading: '650',
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            pitch: {
+              900: '#0a1912',
+              950: '#040d09',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      letter-spacing: -0.025em;
+    }
+    h1, h2 {
+      font-weight: 700 !important;
+    }
+    h3, h4, h5, h6, .font-heading {
+      font-weight: 650 !important;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .font-mono {
+      font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-feature-settings: "tnum" 1;
+    }
+
+    .bg-pitch-mesh {
+      background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.12), transparent 55%),
+                  radial-gradient(circle at 100% 40%, rgba(22, 163, 74, 0.08), transparent 45%),
+                  radial-gradient(circle at 0% 80%, rgba(34, 197, 94, 0.06), transparent 50%),
+                  #ffffff;
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-brand-600 selection:text-white flex flex-col min-h-screen">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group py-1 flex-shrink-0">
+          <img src="logo-cropped.png" alt="TurfFlow — Your Turf. Automated." class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-7 text-[13px] xl:text-sm font-medium text-slate-600 mx-auto px-4">
+          <a href="index.html#problem-solution" class="hover:text-brand-700 transition-colors whitespace-nowrap">Why TurfFlow</a>
+          <a href="index.html#experience" class="hover:text-brand-700 transition-colors whitespace-nowrap">Channels</a>
+          <a href="index.html#how-it-works" class="hover:text-brand-700 transition-colors whitespace-nowrap">How It Works</a>
+          <a href="index.html#sync-demo" class="hover:text-brand-700 transition-colors whitespace-nowrap">Live Sync</a>
+          <a href="index.html#packages" class="hover:text-brand-700 transition-colors whitespace-nowrap">Pricing</a>
+          <a href="index.html#faq" class="hover:text-brand-700 transition-colors whitespace-nowrap">FAQ</a>
+          <a href="contact.html" class="text-brand-700 font-semibold transition-colors whitespace-nowrap">Support</a>
+        </nav>
+
+        <!-- CTA -->
+        <div class="hidden sm:flex items-center lg:pl-6 lg:border-l lg:border-slate-200/80 flex-shrink-0">
+          <button onclick="openDemoModal()" class="inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white text-xs xl:text-sm font-semibold shadow-sm transition-all hover:shadow-lg hover:shadow-brand-700/20 active:scale-95 whitespace-nowrap">
+            <span>Book a Demo</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 xl:w-4 xl:h-4"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-700 hover:text-slate-900 focus:outline-none rounded-xl hover:bg-slate-100 transition-colors" aria-label="Open navigation menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Sheet -->
+      <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-100 py-4 px-1 space-y-1.5 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
+        <a href="index.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Home</a>
+        <a href="index.html#problem-solution" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Why TurfFlow</a>
+        <a href="index.html#packages" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Pricing & Packages</a>
+        <a href="contact.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Contact / Support</a>
+        <a href="terms.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Terms of Service</a>
+        <div class="pt-3 pb-1 px-2">
+          <button onclick="openDemoModal(); document.getElementById('mobileMenu').classList.add('hidden');" class="w-full text-center px-4 py-3 rounded-full bg-brand-700 text-white font-bold text-sm shadow-md shadow-brand-700/20 active:scale-98 transition-all">Book a Demo</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <section class="bg-pitch-mesh border-b border-slate-200/80 py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-800 text-xs font-mono font-medium shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+        <span>LEGAL & COMPLIANCE • LAST UPDATED SEPTEMBER 2026</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        Privacy Policy
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Your privacy and trust are paramount. Learn how TurfFlow collects, uses, and safeguards information across our sports venue management platform, WhatsApp bots, and booking channels.
+      </p>
+
+      <!-- Key Pillars Summary Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 text-left">
+        <div class="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs">
+          <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-2.5">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+          </div>
+          <h4 class="text-xs font-bold text-slate-900">Zero Data Selling</h4>
+          <p class="text-[11px] text-slate-500 mt-1">We never sell, rent, or trade facility or player data to third-party ad networks.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs">
+          <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-2.5">
+            <i data-lucide="lock" class="w-4 h-4"></i>
+          </div>
+          <h4 class="text-xs font-bold text-slate-900">Encrypted Transactions</h4>
+          <p class="text-[11px] text-slate-500 mt-1">Direct tokenized integration via Razorpay. We do not store raw card numbers or UPI PINs.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs">
+          <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-2.5">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+          </div>
+          <h4 class="text-xs font-bold text-slate-900">Consent-Driven WhatsApp</h4>
+          <p class="text-[11px] text-slate-500 mt-1">Automated messages sent strictly for booking confirmations, slot holds, and customer support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT & TABLE OF CONTENTS ==================== -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      
+      <!-- Sticky Sidebar Quick Navigation (Desktop) -->
+      <aside class="hidden lg:block lg:col-span-4">
+        <div class="sticky top-28 p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="text-xs font-bold text-slate-900 uppercase tracking-wider">Quick Navigation</div>
+          <nav class="space-y-1.5 text-xs font-medium text-slate-600">
+            <a href="#overview" class="block py-1 hover:text-brand-700 transition-colors">1. Overview & Scope</a>
+            <a href="#information-we-collect" class="block py-1 hover:text-brand-700 transition-colors">2. Information We Collect</a>
+            <a href="#how-we-use-information" class="block py-1 hover:text-brand-700 transition-colors">3. How We Use Information</a>
+            <a href="#whatsapp-communications" class="block py-1 hover:text-brand-700 transition-colors">4. WhatsApp & Communication</a>
+            <a href="#payments" class="block py-1 hover:text-brand-700 transition-colors">5. Payment Security & Processing</a>
+            <a href="#data-retention" class="block py-1 hover:text-brand-700 transition-colors">6. Data Retention & Storage</a>
+            <a href="#third-parties" class="block py-1 hover:text-brand-700 transition-colors">7. Service Providers</a>
+            <a href="#your-rights" class="block py-1 hover:text-brand-700 transition-colors">8. Your Rights & Choices</a>
+            <a href="#contact-us" class="block py-1 hover:text-brand-700 transition-colors">9. Grievance Officer & Contact</a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Legal Body -->
+      <article class="lg:col-span-8 space-y-10 text-sm leading-relaxed text-slate-700">
+        
+        <!-- Section 1 -->
+        <section id="overview" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            1. Overview & Scope
+          </h2>
+          <p>
+            Welcome to <strong>TurfFlow</strong> ("TurfFlow", "we", "our", or "us"). TurfFlow operates a specialized software-as-a-service (SaaS) platform facilitating turf and sports facility booking automation, WhatsApp conversational agents, online payments, customer management, and facility operations.
+          </p>
+          <p>
+            This Privacy Policy explains how TurfFlow collects, processes, and protects information when facility owners ("Facility Owners", "Merchants") utilize our management dashboard, and when end-user players and customers ("Players", "Customers") discover, reserve, or pay for slots through TurfFlow-powered web booking portals or WhatsApp conversational channels.
+          </p>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="information-we-collect" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            2. Information We Collect
+          </h2>
+          <p>
+            We collect only the minimum necessary data to confirm reservations, prevent double bookings, process payments, and support sports venue operations:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Facility Information:</strong> Name of turf/facility, sports court specifications, pricing rules, operating schedules, facility address, bank account details for settlement payouts, and business contact details.</li>
+            <li><strong>Customer & Booking Details:</strong> Customer name, 10-digit mobile phone number, WhatsApp contact identifier, selected sport type, booking date and time slot, booking reference ID, and transaction amount.</li>
+            <li><strong>Payment Metadata:</strong> Transaction reference IDs, payment status (successful, pending, failed), payment method type (UPI, Card, NetBanking), and Razorpay transaction IDs. <em>We never see or store raw card CVVs or UPI PINs.</em></li>
+            <li><strong>Technical & Usage Data:</strong> IP address, device type, browser information, session cookies, and interaction logs with the TurfFlow application for security and audit purposes.</li>
+          </ul>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="how-we-use-information" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            3. How We Use Your Information
+          </h2>
+          <p>We process collected data for the following legitimate purposes:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <strong class="text-slate-900 block mb-1">Reservation Fulfillment</strong>
+              Locking selected slots, sending instant booking receipts, and preventing double bookings across channels.
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <strong class="text-slate-900 block mb-1">Operational Notifications</strong>
+              Automated WhatsApp reminders prior to game time, schedule change alerts, and payment receipts.
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <strong class="text-slate-900 block mb-1">Owner Dashboard Intelligence</strong>
+              Providing facility owners with real-time revenue analytics, slot utilization rates, and player booking records.
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <strong class="text-slate-900 block mb-1">Security & Fraud Prevention</strong>
+              Detecting bot abuse, preventing ghost slot reservations, and ensuring reliable payment reconciliations.
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="whatsapp-communications" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            4. WhatsApp & Conversational Communications
+          </h2>
+          <p>
+            TurfFlow integrates with the official Meta WhatsApp Business API to provide conversational booking and customer assistance. When you message a TurfFlow-powered facility number or request a demo via WhatsApp:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5">
+            <li>Communications are governed under Meta's end-to-end encryption standards while in transit.</li>
+            <li>We only send transactional messages (slot confirmations, payment links, hold expirations) triggered directly by your interactions.</li>
+            <li>You can opt out of automated WhatsApp messages at any time by replying <code>STOP</code> or contacting our support team.</li>
+          </ul>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="payments" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            5. Payment Security & Processing
+          </h2>
+          <p>
+            All online transactions on TurfFlow are processed securely through our RBI-compliant payment gateway partner, <strong>Razorpay</strong>.
+          </p>
+          <div class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200 space-y-2">
+            <div class="flex items-center gap-2 text-emerald-800 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-600"></i>
+              Payment Security Standard
+            </div>
+            <p class="text-xs text-slate-700">
+              Payment information is encrypted using industry-standard TLS 1.3 encryption and processed according to PCI-DSS Level 1 specifications. TurfFlow never has access to, nor stores, sensitive card numbers, CVVs, passwords, or UPI security PINs.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section id="data-retention" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            6. Data Retention & Storage
+          </h2>
+          <p>
+            We retain booking transaction records, customer contact profiles, and facility logs for as long as necessary to fulfill contractual obligations, provide dispute reconciliation, and comply with applicable tax and accounting laws in India (typically up to 7 years for financial records). Non-transactional session data is automatically purged on a rolling 90-day basis.
+          </p>
+        </section>
+
+        <!-- Section 7 -->
+        <section id="third-parties" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            7. Service Providers & Subprocessors
+          </h2>
+          <p>
+            We engage vetted third-party service providers solely to execute platform operations:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5">
+            <li><strong>Cloud Infrastructure:</strong> High-availability cloud servers located in secure Indian data center regions.</li>
+            <li><strong>Payment Gateways:</strong> Razorpay Software Private Limited for checkout tokenization and UPI processing.</li>
+            <li><strong>Messaging Infrastructure:</strong> Meta WhatsApp Cloud API for conversational messaging.</li>
+          </ul>
+        </section>
+
+        <!-- Section 8 -->
+        <section id="your-rights" class="scroll-mt-28 space-y-3">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            8. Your Rights & Choices
+          </h2>
+          <p>Under the Digital Personal Data Protection Act (DPDP) and applicable regulations, you have the right to:</p>
+          <ul class="list-disc pl-5 space-y-1.5">
+            <li>Access a summary of the personal data held about you by TurfFlow.</li>
+            <li>Request correction or updating of inaccurate information.</li>
+            <li>Request deletion of your profile where retention is not mandated by statutory accounting or legal obligations.</li>
+            <li>Withdraw consent for marketing communications.</li>
+          </ul>
+        </section>
+
+        <!-- Section 9 -->
+        <section id="contact-us" class="scroll-mt-28 space-y-4">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            9. Grievance Officer & Contact Information
+          </h2>
+          <p>
+            If you have questions, feedback, or grievance requests concerning this Privacy Policy or your personal data, please contact our designated Grievance Officer:
+          </p>
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 font-mono text-xs">
+            <p><strong>TurfFlow Technologies Private Limited</strong></p>
+            <p>Attention: Grievance Officer — Privacy & Data Protection</p>
+            <p>Email: <a href="mailto:privacy@turfflow.in" class="text-brand-700 hover:underline">privacy@turfflow.in</a> / <a href="mailto:support@turfflow.in" class="text-brand-700 hover:underline">support@turfflow.in</a></p>
+            <p>WhatsApp / Helpline: <a href="https://wa.me/919876543210" class="text-brand-700 hover:underline">+91 98765 43210</a></p>
+            <p>Website: <a href="https://turfflow.in" class="text-brand-700 hover:underline">https://turfflow.in</a></p>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-950 text-white pt-16 pb-12 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-900">
+        <!-- Brand -->
+        <div class="space-y-2 text-center md:text-left">
+          <a href="index.html" class="inline-block group">
+            <img src="logo-white.png" alt="TurfFlow — Your Turf. Automated." class="h-10 sm:h-11 w-auto object-contain mx-auto md:mx-0 transition-transform group-hover:scale-105" />
+          </a>
+          <p class="text-xs text-slate-400 font-medium max-w-xs">Turf booking, WhatsApp automation & facility operations platform.</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-300">
+          <a href="index.html" class="hover:text-white transition-colors">Home</a>
+          <a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="index.html#packages" class="hover:text-white transition-colors">Packages</a>
+          <a href="contact.html" class="hover:text-white transition-colors">Contact / Support</a>
+          <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+          <a href="privacy.html" class="text-brand-400 font-semibold transition-colors">Privacy Policy</a>
+        </nav>
+
+        <!-- Footer CTA -->
+        <div>
+          <button onclick="openDemoModal()" class="px-5 py-2.5 rounded-full bg-brand-700 hover:bg-brand-600 text-white text-xs font-bold transition-colors">
+            Book a Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
+        <div>© 2026 TurfFlow Technologies Private Limited. All rights reserved.</div>
+        <div class="flex items-center gap-4">
+          <a href="privacy.html" class="hover:text-slate-300">Privacy Policy</a>
+          <span>·</span>
+          <a href="terms.html" class="hover:text-slate-300">Terms of Service</a>
+          <span>·</span>
+          <a href="contact.html" class="hover:text-slate-300">Contact / Support</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== DEMO MODAL ==================== -->
+  <div id="demoModal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md items-center justify-center p-3 sm:p-4 overflow-y-auto" style="display: none;">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative my-auto max-h-[92vh] overflow-y-auto">
+      <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none" aria-label="Close modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-6">
+        <div class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1">Schedule a Live Demo</div>
+        <h3 class="text-2xl font-extrabold text-slate-900">Book a 15-Minute Demo</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Enter your turf details below. You will be redirected to WhatsApp with your information ready.
+        </p>
+        <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-[11px] font-bold text-brand-800">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i>
+          <span>First 2 months completely free · Zero pre-payments · Cancel anytime</span>
+        </div>
+      </div>
+
+      <form id="demoForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Your Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="formName" required placeholder="e.g. Ramesh Patel" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Turf / Facility Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="formTurf" required placeholder="e.g. Champions Arena Turf" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp (10 Digits) <span class="text-rose-500">*</span></label>
+            <div class="relative flex rounded-xl border border-slate-300 focus-within:ring-2 focus-within:ring-brand-600 focus-within:border-brand-600 overflow-hidden bg-white">
+              <span class="inline-flex items-center px-3 bg-slate-50 border-r border-slate-300 text-xs font-semibold text-slate-500 font-mono select-none">+91</span>
+              <input type="tel" id="formPhone" required maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10-digit number" class="w-full px-3.5 py-2.5 text-sm font-mono text-slate-900 focus:outline-none" />
+            </div>
+            <p id="phoneError" class="hidden text-[11px] text-rose-600 font-medium mt-1">Phone number must have exactly 10 digits.</p>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sport Type</label>
+            <select id="formSport" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+              <option value="Football Turf">Football Turf</option>
+              <option value="Cricket Turf">Cricket Turf</option>
+              <option value="Box Cricket">Box Cricket</option>
+              <option value="Multi-Sport Complex">Multi-Sport Complex</option>
+              <option value="Other Facility">Other Facility</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Interested Package</label>
+          <select id="packageSelect" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+            <option value="TurfFlow WhatsApp">TurfFlow WhatsApp (₹999/mo · 2 Months Free)</option>
+            <option value="TurfFlow Complete">TurfFlow Complete (₹2,499/mo · 2 Months Free)</option>
+            <option value="Undecided / Need Consultation">Help me choose the right package</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3.5 px-4 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-98">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Book Demo & Continue on WhatsApp</span>
+        </button>
+        <p class="text-[11px] text-center text-slate-400">
+          Free 60-day trial · No credit card required · Redirects to official WhatsApp
+        </p>
+      </form>
+
+      <div id="formSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <i data-lucide="check" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-lg font-bold text-slate-900">Redirecting to WhatsApp...</h4>
+        <p class="text-xs text-slate-600 max-w-xs mx-auto">Connecting you with the TurfFlow team. If WhatsApp didn't open automatically, click the button below.</p>
+        <div class="pt-2">
+          <a id="manualWhatsAppLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Open in WhatsApp</span>
+          </a>
+          <button onclick="closeDemoModal()" class="px-6 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold ml-2">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const TURFFLOW_WHATSAPP_NUMBER = "919876543210";
+
+    function openDemoModal() {
+      const modal = document.getElementById('demoModal');
+      const form = document.getElementById('demoForm');
+      const formSuccess = document.getElementById('formSuccess');
+      const phoneError = document.getElementById('phoneError');
+      modal.style.display = 'flex';
+      form.classList.remove('hidden');
+      formSuccess.classList.add('hidden');
+      if (phoneError) phoneError.classList.add('hidden');
+      form.reset();
+      lucide.createIcons();
+    }
+
+    function closeDemoModal() {
+      document.getElementById('demoModal').style.display = 'none';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDemoModal();
+    });
+    document.getElementById('demoModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('demoModal')) closeDemoModal();
+    });
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const phoneInput = document.getElementById('formPhone');
+      const phoneError = document.getElementById('phoneError');
+      const phoneDigits = phoneInput.value.replace(/\D/g, '');
+
+      if (phoneDigits.length !== 10) {
+        if (phoneError) phoneError.classList.remove('hidden');
+        phoneInput.focus();
+        return;
+      }
+      if (phoneError) phoneError.classList.add('hidden');
+
+      const name = document.getElementById('formName').value.trim();
+      const turfName = document.getElementById('formTurf').value.trim();
+      const formattedPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
+      const sport = document.getElementById('formSport').value;
+      const pkg = document.getElementById('packageSelect').value;
+
+      document.getElementById('demoForm').classList.add('hidden');
+      document.getElementById('formSuccess').classList.remove('hidden');
+
+      const waText = `Hello TurfFlow! I would like to book a 15-minute live demo. Here are my facility details:\n\n• Name: ${name}\n• Turf / Facility: ${turfName}\n• Phone / WhatsApp: ${formattedPhone}\n• Sport Type: ${sport}\n• Interested Package: ${pkg}\n\nI'd like to see the demo and activate the 2 Months Free Trial.`;
+      const whatsappUrl = `https://wa.me/${TURFFLOW_WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+      
+      document.getElementById('manualWhatsAppLink').href = whatsappUrl;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      lucide.createIcons();
+    }
+
+    const phoneInputEl = document.getElementById('formPhone');
+    const phoneErrorEl = document.getElementById('phoneError');
+    if (phoneInputEl) {
+      phoneInputEl.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if (e.target.value.length === 10 && phoneErrorEl) {
+          phoneErrorEl.classList.add('hidden');
+        }
+      });
+    }
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>

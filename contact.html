@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Support — TurfFlow</title>
+  <meta name="description" content="Get in touch with the TurfFlow support and onboarding team. 7 days a week support for sports venues, pitches, and turf complexes." />
+  <link rel="icon" type="image/png" href="logo-mark.png" />
+  
+  <!-- Fonts: Geist (Headings), Inter (Body & UI), Geist Mono (Numbers & Dashboard) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            heading: ['"Geist"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+            mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          fontWeight: {
+            heading: '650',
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            pitch: {
+              900: '#0a1912',
+              950: '#040d09',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      letter-spacing: -0.025em;
+    }
+    h1, h2 {
+      font-weight: 700 !important;
+    }
+    h3, h4, h5, h6, .font-heading {
+      font-weight: 650 !important;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .font-mono {
+      font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-feature-settings: "tnum" 1;
+    }
+
+    .bg-pitch-mesh {
+      background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.12), transparent 55%),
+                  radial-gradient(circle at 100% 40%, rgba(22, 163, 74, 0.08), transparent 45%),
+                  radial-gradient(circle at 0% 80%, rgba(34, 197, 94, 0.06), transparent 50%),
+                  #ffffff;
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-brand-600 selection:text-white flex flex-col min-h-screen">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center group py-1 flex-shrink-0">
+          <img src="logo-cropped.png" alt="TurfFlow — Your Turf. Automated." class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-7 text-[13px] xl:text-sm font-medium text-slate-600 mx-auto px-4">
+          <a href="index.html#problem-solution" class="hover:text-brand-700 transition-colors whitespace-nowrap">Why TurfFlow</a>
+          <a href="index.html#experience" class="hover:text-brand-700 transition-colors whitespace-nowrap">Channels</a>
+          <a href="index.html#how-it-works" class="hover:text-brand-700 transition-colors whitespace-nowrap">How It Works</a>
+          <a href="index.html#sync-demo" class="hover:text-brand-700 transition-colors whitespace-nowrap">Live Sync</a>
+          <a href="index.html#packages" class="hover:text-brand-700 transition-colors whitespace-nowrap">Pricing</a>
+          <a href="index.html#faq" class="hover:text-brand-700 transition-colors whitespace-nowrap">FAQ</a>
+          <a href="contact.html" class="text-brand-700 font-bold transition-colors whitespace-nowrap">Support</a>
+        </nav>
+
+        <!-- CTA -->
+        <div class="hidden sm:flex items-center lg:pl-6 lg:border-l lg:border-slate-200/80 flex-shrink-0">
+          <button onclick="openDemoModal()" class="inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full bg-brand-700 hover:bg-brand-800 text-white text-xs xl:text-sm font-semibold shadow-sm transition-all hover:shadow-lg hover:shadow-brand-700/20 active:scale-95 whitespace-nowrap">
+            <span>Book a Demo</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 xl:w-4 xl:h-4"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-700 hover:text-slate-900 focus:outline-none rounded-xl hover:bg-slate-100 transition-colors" aria-label="Open navigation menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Sheet -->
+      <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-100 py-4 px-1 space-y-1.5 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-xl">
+        <a href="index.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Home</a>
+        <a href="index.html#problem-solution" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Why TurfFlow</a>
+        <a href="index.html#packages" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Pricing & Packages</a>
+        <a href="contact.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-brand-700 bg-brand-50 transition-colors">Contact / Support</a>
+        <a href="privacy.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Privacy Policy</a>
+        <a href="terms.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-brand-50 hover:text-brand-800 transition-colors">Terms of Service</a>
+        <div class="pt-3 pb-1 px-2">
+          <button onclick="openDemoModal(); document.getElementById('mobileMenu').classList.add('hidden');" class="w-full text-center px-4 py-3 rounded-full bg-brand-700 text-white font-bold text-sm shadow-md shadow-brand-700/20 active:scale-98 transition-all">Book a Demo</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="bg-pitch-mesh border-b border-slate-200/80 py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-800 text-xs font-mono font-medium shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span>WE'RE HERE TO HELP • 7 DAYS A WEEK</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        Contact TurfFlow Support
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Whether you run a single box cricket turf or manage multi-sport tournament arenas, our engineers and sports tech specialists are ready to assist you.
+      </p>
+
+      <!-- Fast Contact Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2 text-xs font-medium text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="clock" class="w-4 h-4 text-brand-600"></i>
+          <span>8:00 AM – 11:00 PM IST</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-4 h-4 text-brand-600"></i>
+          <span>&lt; 5 Min WhatsApp Response</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-brand-600"></i>
+          <span>Dedicated Venue Specialist</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT CHANNELS & FORM ==================== -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 w-full">
+    
+    <!-- Top Channels Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+      
+      <!-- WhatsApp Direct -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm hover:border-brand-300 hover:shadow-md transition-all flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="message-circle" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">WhatsApp Instant Support</h3>
+            <p class="text-xs text-slate-500 mt-1">Connect directly with our operational support team for urgent assistance or quick setup queries.</p>
+          </div>
+          <div class="font-mono text-xs font-semibold text-slate-800 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            +91 98765 43210
+          </div>
+        </div>
+        <div class="pt-6">
+          <a href="https://wa.me/919876543210?text=Hello%20TurfFlow%20Support!%20I%20need%20assistance%20with%20my%20turf%20facility." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Email Support -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm hover:border-brand-300 hover:shadow-md transition-all flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-700 flex items-center justify-center">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Email Support</h3>
+            <p class="text-xs text-slate-500 mt-1">Send us technical logs, custom integration requests, or invoicing queries. Average response within 2 hours.</p>
+          </div>
+          <div class="space-y-1.5 text-xs font-mono">
+            <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-slate-700">support@turfflow.in</div>
+            <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-slate-700">partners@turfflow.in</div>
+          </div>
+        </div>
+        <div class="pt-6">
+          <a href="mailto:support@turfflow.in" class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Send Email</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Demo / Consultation -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm hover:border-brand-300 hover:shadow-md transition-all flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <i data-lucide="calendar" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">15-Min Live Demo</h3>
+            <p class="text-xs text-slate-500 mt-1">See how the double-booking engine locks slots in real time and test the automated WhatsApp booking flow.</p>
+          </div>
+          <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-800 font-semibold">
+            First 2 months completely free · ₹0 setup fees
+          </div>
+        </div>
+        <div class="pt-6">
+          <button onclick="openDemoModal()" class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow-sm transition-colors">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>Book a Demo</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Form & Support Info Split -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- Contact Form Container -->
+      <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-lg relative">
+        <div class="mb-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1">Direct Message Form</div>
+          <h2 class="text-2xl font-extrabold text-slate-900">Send Us a Message</h2>
+          <p class="text-xs text-slate-500 mt-1">
+            Fill in the form below and choose whether you want to submit your ticket online or continue on WhatsApp.
+          </p>
+        </div>
+
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Your Name <span class="text-rose-500">*</span></label>
+              <input type="text" id="contactName" required placeholder="e.g. Anand Kulkarni" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Turf / Complex Name <span class="text-rose-500">*</span></label>
+              <input type="text" id="contactTurf" required placeholder="e.g. Apex Football Turf" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Phone Number (10 Digits) <span class="text-rose-500">*</span></label>
+              <div class="relative flex rounded-xl border border-slate-300 focus-within:ring-2 focus-within:ring-brand-600 focus-within:border-brand-600 overflow-hidden bg-white">
+                <span class="inline-flex items-center px-3 bg-slate-50 border-r border-slate-300 text-xs font-semibold text-slate-500 font-mono select-none">+91</span>
+                <input type="tel" id="contactPhone" required maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10-digit number" class="w-full px-3.5 py-2.5 text-sm font-mono text-slate-900 focus:outline-none" />
+              </div>
+              <p id="contactPhoneError" class="hidden text-[11px] text-rose-600 font-medium mt-1">Phone number must have exactly 10 digits.</p>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+              <input type="email" id="contactEmail" placeholder="e.g. turf@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Inquiry Topic</label>
+            <select id="contactTopic" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+              <option value="Technical Support & Slot Sync">Technical Support & Slot Sync</option>
+              <option value="Onboarding & Demo Request">Onboarding & Demo Request</option>
+              <option value="WhatsApp Business API Integration">WhatsApp Business API Integration</option>
+              <option value="Billing & Package Upgrade">Billing & Package Upgrade</option>
+              <option value="General Question">General Question</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Your Message <span class="text-rose-500">*</span></label>
+            <textarea id="contactMessage" required rows="4" placeholder="How can our support team help your facility today?" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <button type="submit" id="btnSubmitOnline" class="w-full sm:w-1/2 py-3 px-4 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 active:scale-98">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Message</span>
+            </button>
+            <button type="button" onclick="submitOnWhatsApp()" class="w-full sm:w-1/2 py-3 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 active:scale-98">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Send via WhatsApp</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Form Success State -->
+        <div id="contactSuccess" class="hidden text-center py-10 space-y-3">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+            <i data-lucide="check" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-xl font-bold text-slate-900" id="contactSuccessTitle">Message Received!</h4>
+          <p class="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed" id="contactSuccessDesc">
+            Thank you. Our sports support team has received your message and will reach out to you via your phone or email shortly.
+          </p>
+          <div class="pt-2">
+            <button onclick="resetContactForm()" class="px-6 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">
+              Send Another Message
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ & Support Guidance -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
+          <div class="flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <i data-lucide="help-circle" class="w-4 h-4 text-brand-600"></i>
+            Quick Support Answers
+          </div>
+
+          <div class="space-y-3 text-xs leading-relaxed text-slate-600">
+            <div class="p-3.5 rounded-2xl bg-white border border-slate-200">
+              <div class="font-bold text-slate-900 mb-1">How fast can our turf go live?</div>
+              <div>Most venues are set up and taking live WhatsApp and web reservations within <strong>24 to 48 hours</strong> following onboarding.</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white border border-slate-200">
+              <div class="font-bold text-slate-900 mb-1">Do we need new hardware or POS machines?</div>
+              <div>No. TurfFlow is 100% cloud-based. You and your staff can manage bookings from any smartphone, tablet, laptop, or desktop.</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white border border-slate-200">
+              <div class="font-bold text-slate-900 mb-1">What if our pitch gets rained out?</div>
+              <div>The Owner Console enables 1-click slot rescheduling or automatic refund triggers directly to player payment accounts.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Office & Registered Headquarters -->
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 space-y-3 text-xs text-slate-600">
+          <div class="font-bold text-slate-900 text-sm">TurfFlow Technologies Pvt. Ltd.</div>
+          <p class="leading-relaxed">
+            Specialized sports venue management, AI reservation automation, and digital court operations.
+          </p>
+          <div class="pt-2 border-t border-slate-100 space-y-1 font-mono text-[11px] text-slate-500">
+            <div>Support Desk: 8:00 AM – 11:00 PM IST (Mon–Sun)</div>
+            <div>Official WhatsApp: +91 98765 43210</div>
+            <div>Email: support@turfflow.in</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-950 text-white pt-16 pb-12 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-900">
+        <!-- Brand -->
+        <div class="space-y-2 text-center md:text-left">
+          <a href="index.html" class="inline-block group">
+            <img src="logo-white.png" alt="TurfFlow — Your Turf. Automated." class="h-10 sm:h-11 w-auto object-contain mx-auto md:mx-0 transition-transform group-hover:scale-105" />
+          </a>
+          <p class="text-xs text-slate-400 font-medium max-w-xs">Turf booking, WhatsApp automation & facility operations platform.</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-300">
+          <a href="index.html" class="hover:text-white transition-colors">Home</a>
+          <a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="index.html#packages" class="hover:text-white transition-colors">Packages</a>
+          <a href="contact.html" class="text-brand-400 font-semibold transition-colors">Contact / Support</a>
+          <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+          <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+        </nav>
+
+        <!-- Footer CTA -->
+        <div>
+          <button onclick="openDemoModal()" class="px-5 py-2.5 rounded-full bg-brand-700 hover:bg-brand-600 text-white text-xs font-bold transition-colors">
+            Book a Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
+        <div>© 2026 TurfFlow Technologies Private Limited. All rights reserved.</div>
+        <div class="flex items-center gap-4">
+          <a href="privacy.html" class="hover:text-slate-300">Privacy Policy</a>
+          <span>·</span>
+          <a href="terms.html" class="hover:text-slate-300">Terms of Service</a>
+          <span>·</span>
+          <a href="contact.html" class="hover:text-slate-300">Contact / Support</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== DEMO MODAL ==================== -->
+  <div id="demoModal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md items-center justify-center p-3 sm:p-4 overflow-y-auto" style="display: none;">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative my-auto max-h-[92vh] overflow-y-auto">
+      <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none" aria-label="Close modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-6">
+        <div class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1">Schedule a Live Demo</div>
+        <h3 class="text-2xl font-extrabold text-slate-900">Book a 15-Minute Demo</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Enter your turf details below. You will be redirected to WhatsApp with your information ready.
+        </p>
+        <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-[11px] font-bold text-brand-800">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i>
+          <span>First 2 months completely free · Zero pre-payments · Cancel anytime</span>
+        </div>
+      </div>
+
+      <form id="demoForm" onsubmit="handleDemoSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Your Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="demoName" required placeholder="e.g. Ramesh Patel" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Turf / Facility Name <span class="text-rose-500">*</span></label>
+          <input type="text" id="demoTurf" required placeholder="e.g. Champions Arena Turf" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp (10 Digits) <span class="text-rose-500">*</span></label>
+            <div class="relative flex rounded-xl border border-slate-300 focus-within:ring-2 focus-within:ring-brand-600 focus-within:border-brand-600 overflow-hidden bg-white">
+              <span class="inline-flex items-center px-3 bg-slate-50 border-r border-slate-300 text-xs font-semibold text-slate-500 font-mono select-none">+91</span>
+              <input type="tel" id="demoPhone" required maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10-digit number" class="w-full px-3.5 py-2.5 text-sm font-mono text-slate-900 focus:outline-none" />
+            </div>
+            <p id="demoPhoneError" class="hidden text-[11px] text-rose-600 font-medium mt-1">Phone number must have exactly 10 digits.</p>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Sport Type</label>
+            <select id="demoSport" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+              <option value="Football Turf">Football Turf</option>
+              <option value="Cricket Turf">Cricket Turf</option>
+              <option value="Box Cricket">Box Cricket</option>
+              <option value="Multi-Sport Complex">Multi-Sport Complex</option>
+              <option value="Other Facility">Other Facility</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Interested Package</label>
+          <select id="demoPackage" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
+            <option value="TurfFlow WhatsApp">TurfFlow WhatsApp (₹999/mo · 2 Months Free)</option>
+            <option value="TurfFlow Complete">TurfFlow Complete (₹2,499/mo · 2 Months Free)</option>
+            <option value="Undecided / Need Consultation">Help me choose the right package</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3.5 px-4 rounded-full bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-98">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Book Demo & Continue on WhatsApp</span>
+        </button>
+        <p class="text-[11px] text-center text-slate-400">
+          Free 60-day trial · No credit card required · Redirects to official WhatsApp
+        </p>
+      </form>
+
+      <div id="demoSuccess" class="hidden text-center py-8 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <i data-lucide="check" class="w-6 h-6"></i>
+        </div>
+        <h4 class="text-lg font-bold text-slate-900">Redirecting to WhatsApp...</h4>
+        <p class="text-xs text-slate-600 max-w-xs mx-auto">Connecting you with the TurfFlow team. If WhatsApp didn't open automatically, click the button below.</p>
+        <div class="pt-2">
+          <a id="demoWhatsAppLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Open in WhatsApp</span>
+          </a>
+          <button onclick="closeDemoModal()" class="px-6 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold ml-2">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const TURFFLOW_WHATSAPP_NUMBER = "919876543210";
+
+    // Strict 10-digit sanitization for contact phone
+    const contactPhoneEl = document.getElementById('contactPhone');
+    const contactPhoneErrorEl = document.getElementById('contactPhoneError');
+    if (contactPhoneEl) {
+      contactPhoneEl.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if (e.target.value.length === 10 && contactPhoneErrorEl) {
+          contactPhoneErrorEl.classList.add('hidden');
+        }
+      });
+    }
+
+    // Strict 10-digit sanitization for demo phone
+    const demoPhoneEl = document.getElementById('demoPhone');
+    const demoPhoneErrorEl = document.getElementById('demoPhoneError');
+    if (demoPhoneEl) {
+      demoPhoneEl.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if (e.target.value.length === 10 && demoPhoneErrorEl) {
+          demoPhoneErrorEl.classList.add('hidden');
+        }
+      });
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const phoneDigits = contactPhoneEl.value.replace(/\D/g, '');
+      if (phoneDigits.length !== 10) {
+        if (contactPhoneErrorEl) contactPhoneErrorEl.classList.remove('hidden');
+        contactPhoneEl.focus();
+        return;
+      }
+      if (contactPhoneErrorEl) contactPhoneErrorEl.classList.add('hidden');
+
+      const name = document.getElementById('contactName').value.trim();
+      const turf = document.getElementById('contactTurf').value.trim();
+      const formattedPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
+
+      document.getElementById('contactForm').classList.add('hidden');
+      document.getElementById('contactSuccess').classList.remove('hidden');
+      document.getElementById('contactSuccessDesc').textContent = `Thank you, ${name}. Our sports support team has received your inquiry for ${turf} and will reach out to you via ${formattedPhone} shortly.`;
+      lucide.createIcons();
+    }
+
+    function submitOnWhatsApp() {
+      const name = document.getElementById('contactName').value.trim();
+      const turf = document.getElementById('contactTurf').value.trim();
+      const phoneDigits = contactPhoneEl.value.replace(/\D/g, '');
+      const topic = document.getElementById('contactTopic').value;
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !turf || !message) {
+        alert('Please fill in your Name, Turf Name, and Message before proceeding to WhatsApp.');
+        return;
+      }
+
+      if (phoneDigits.length !== 10) {
+        if (contactPhoneErrorEl) contactPhoneErrorEl.classList.remove('hidden');
+        contactPhoneEl.focus();
+        return;
+      }
+      if (contactPhoneErrorEl) contactPhoneErrorEl.classList.add('hidden');
+
+      const formattedPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
+      const waText = `Hello TurfFlow Support! Here is my query:\n\n• Name: ${name}\n• Facility: ${turf}\n• Phone: ${formattedPhone}\n• Topic: ${topic}\n• Message: ${message}`;
+      const url = `https://wa.me/${TURFFLOW_WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function resetContactForm() {
+      document.getElementById('contactForm').reset();
+      document.getElementById('contactForm').classList.remove('hidden');
+      document.getElementById('contactSuccess').classList.add('hidden');
+      if (contactPhoneErrorEl) contactPhoneErrorEl.classList.add('hidden');
+    }
+
+    function openDemoModal() {
+      const modal = document.getElementById('demoModal');
+      const form = document.getElementById('demoForm');
+      const formSuccess = document.getElementById('demoSuccess');
+      if (demoPhoneErrorEl) demoPhoneErrorEl.classList.add('hidden');
+      modal.style.display = 'flex';
+      form.classList.remove('hidden');
+      formSuccess.classList.add('hidden');
+      form.reset();
+      lucide.createIcons();
+    }
+
+    function closeDemoModal() {
+      document.getElementById('demoModal').style.display = 'none';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDemoModal();
+    });
+    document.getElementById('demoModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('demoModal')) closeDemoModal();
+    });
+
+    function handleDemoSubmit(e) {
+      e.preventDefault();
+      const phoneDigits = demoPhoneEl.value.replace(/\D/g, '');
+      if (phoneDigits.length !== 10) {
+        if (demoPhoneErrorEl) demoPhoneErrorEl.classList.remove('hidden');
+        demoPhoneEl.focus();
+        return;
+      }
+      if (demoPhoneErrorEl) demoPhoneErrorEl.classList.add('hidden');
+
+      const name = document.getElementById('demoName').value.trim();
+      const turfName = document.getElementById('demoTurf').value.trim();
+      const formattedPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
+      const sport = document.getElementById('demoSport').value;
+      const pkg = document.getElementById('demoPackage').value;
+
+      document.getElementById('demoForm').classList.add('hidden');
+      document.getElementById('demoSuccess').classList.remove('hidden');
+
+      const waText = `Hello TurfFlow! I would like to book a 15-minute live demo. Here are my facility details:\n\n• Name: ${name}\n• Turf / Facility: ${turfName}\n• Phone / WhatsApp: ${formattedPhone}\n• Sport Type: ${sport}\n• Interested Package: ${pkg}\n\nI'd like to see the demo and activate the 2 Months Free Trial.`;
+      const whatsappUrl = `https://wa.me/${TURFFLOW_WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+      
+      document.getElementById('demoWhatsAppLink').href = whatsappUrl;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      lucide.createIcons();
+    }
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>
