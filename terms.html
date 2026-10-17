@@ -151,7 +151,7 @@
           <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center mb-2.5">
             <i data-lucide="sparkles" class="w-4 h-4"></i>
           </div>
-          <h4 class="text-xs font-bold text-slate-900">First 2 Months Free</h4>
+          <h4 class="text-xs font-bold text-slate-900">First Month Free</h4>
           <p class="text-[11px] text-slate-500 mt-1">Full feature access with ₹0 software fees, 0 upfront deposit, and no pre-payments.</p>
         </div>
         <div class="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs">
@@ -185,7 +185,7 @@
             <a href="#services-description" class="block py-1 hover:text-brand-700 transition-colors">2. Platform Description & License</a>
             <a href="#facility-accounts" class="block py-1 hover:text-brand-700 transition-colors">3. Facility Owner Accounts</a>
             <a href="#booking-locking" class="block py-1 hover:text-brand-700 transition-colors">4. Slot Locking & Double Booking</a>
-            <a href="#subscriptions-pricing" class="block py-1 hover:text-brand-700 transition-colors">5. Subscriptions & 60-Day Trial</a>
+            <a href="#subscriptions-pricing" class="block py-1 hover:text-brand-700 transition-colors">5. Subscriptions & 30-Day Trial</a>
             <a href="#payments-gateways" class="block py-1 hover:text-brand-700 transition-colors">6. Online Payments & Settlements</a>
             <a href="#cancellations-refunds" class="block py-1 hover:text-brand-700 transition-colors">7. Player Cancellations & Refunds</a>
             <a href="#acceptable-use" class="block py-1 hover:text-brand-700 transition-colors">8. Acceptable Use Policy</a>
@@ -263,7 +263,7 @@
         <!-- Section 5 -->
         <section id="subscriptions-pricing" class="scroll-mt-28 space-y-3">
           <h2 class="text-xl sm:text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
-            5. Subscriptions, 60-Day Free Trial & Billing
+            5. Subscriptions, 30-Day Free Trial & Billing
           </h2>
           <p>
             TurfFlow offers simple, transparent subscription plans designed to keep your software costs fixed:
@@ -272,17 +272,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div class="p-3 bg-white rounded-xl border border-slate-200">
                 <div class="font-bold text-slate-900">TurfFlow WhatsApp Plan</div>
-                <div class="font-mono text-emerald-700 font-semibold mt-1">₹0 for 2 months, then ₹999/month</div>
+                <div class="font-mono text-emerald-700 font-semibold mt-1">₹0 for 1 month, then ₹999/month</div>
                 <div class="text-slate-500 mt-1">Includes WhatsApp booking bot, automated slot sync, and basic owner console.</div>
               </div>
               <div class="p-3 bg-white rounded-xl border border-slate-200">
                 <div class="font-bold text-slate-900">TurfFlow Complete Plan</div>
-                <div class="font-mono text-emerald-700 font-semibold mt-1">₹0 for 2 months, then ₹2,499/month</div>
+                <div class="font-mono text-emerald-700 font-semibold mt-1">₹0 for 1 month, then ₹2,499/month</div>
                 <div class="text-slate-500 mt-1">Includes WhatsApp bot, branded web booking portal, advanced analytics, and priority support.</div>
               </div>
             </div>
             <ul class="list-disc pl-5 space-y-1 text-xs text-slate-600">
-              <li><strong>60-Day Free Trial:</strong> All new facilities receive their first 60 days 100% free of software fees with zero advance setup payments.</li>
+              <li><strong>30-Day Free Trial:</strong> All new facilities receive their first 30 days 100% free of software fees with zero advance setup payments.</li>
               <li><strong>Cancel Anytime:</strong> You may cancel your subscription at any time prior to the trial expiration without penalty or recurring charges.</li>
               <li><strong>0% Platform Commission:</strong> TurfFlow charges ₹0 commission on customer bookings. You keep 100% of player payments.</li>
             </ul>
@@ -433,7 +433,7 @@
         </p>
         <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-[11px] font-bold text-brand-800">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i>
-          <span>First 2 months completely free · Zero pre-payments · Cancel anytime</span>
+          <span>First month completely free · Zero pre-payments · Cancel anytime</span>
         </div>
       </div>
 
@@ -469,8 +469,8 @@
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Interested Package</label>
           <select id="packageSelect" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-brand-600 focus:outline-none">
-            <option value="TurfFlow WhatsApp">TurfFlow WhatsApp (₹999/mo · 2 Months Free)</option>
-            <option value="TurfFlow Complete">TurfFlow Complete (₹2,499/mo · 2 Months Free)</option>
+            <option value="TurfFlow WhatsApp">TurfFlow WhatsApp (₹999/mo · 1 Month Free)</option>
+            <option value="TurfFlow Complete">TurfFlow Complete (₹2,499/mo · 1 Month Free)</option>
             <option value="Undecided / Need Consultation">Help me choose the right package</option>
           </select>
         </div>
@@ -479,7 +479,7 @@
           <span>Book Demo & Continue on WhatsApp</span>
         </button>
         <p class="text-[11px] text-center text-slate-400">
-          Free 60-day trial · No credit card required · Redirects to official WhatsApp
+          Free 30-day trial · No credit card required · Redirects to official WhatsApp
         </p>
       </form>
 
@@ -550,7 +550,7 @@
       document.getElementById('demoForm').classList.add('hidden');
       document.getElementById('formSuccess').classList.remove('hidden');
 
-      const waText = `Hello TurfFlow! I would like to book a 15-minute live demo. Here are my facility details:\n\n• Name: ${name}\n• Turf / Facility: ${turfName}\n• Phone / WhatsApp: ${formattedPhone}\n• Sport Type: ${sport}\n• Interested Package: ${pkg}\n\nI'd like to see the demo and activate the 2 Months Free Trial.`;
+      const waText = `Hello TurfFlow! I would like to book a 15-minute live demo. Here are my facility details:\n\n• Name: ${name}\n• Turf / Facility: ${turfName}\n• Phone / WhatsApp: ${formattedPhone}\n• Sport Type: ${sport}\n• Interested Package: ${pkg}\n\nI'd like to see the demo and activate the 1 Month Free Trial.`;
       const whatsappUrl = `https://wa.me/${TURFFLOW_WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
       
       document.getElementById('manualWhatsAppLink').href = whatsappUrl;
