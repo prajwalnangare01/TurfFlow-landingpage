@@ -31,8 +31,10 @@
 * **Supporting Headline:** Let customers book through WhatsApp or your website while you manage everything from one dashboard.
 * **Supporting Copy:** TurfFlow brings bookings, availability, payments, customers, and day-to-day booking operations into one centralized system.
 * **Primary CTA:** Book a Demo
-* **Secondary CTA:** Explore Packages
-* **Trust Line:** First 2 months completely free · No prepayments · Cancel anytime · 0% TurfFlow booking commission
+* **Demo Explanation:** See how customers book, pay and receive confirmation—and how you manage everything from one dashboard.
+* **Secondary CTA:** Try the booking flow on WhatsApp
+* **Special Trial Offer:** Try TurfFlow FREE for 30 Days — Full access to your selected plan. No software subscription fee during the trial.
+* **Trust Line:** 30-Day Free Trial · No prepayments · Cancel anytime · 0% TurfFlow booking commission
 
 ---
 
@@ -162,10 +164,16 @@ Provide your facility with a fast, professional online presence. With a dedicate
 
 ---
 
-## 6. CENTRALIZED SYSTEM SECTION
+## 6. LIVE BOOKING SYNC SECTION
+
+### Eyebrow:
+Live Booking Sync
 
 ### Main Heading:
-One booking system. Every channel stays in sync.
+One booking, updated everywhere.
+
+### Subheading:
+Bookings from WhatsApp, your website, or walk-ins automatically update across your entire schedule in real time.
 
 ### The Real-Time Synchronization Scenario:
 > **A customer books the 8 PM slot through your website.**
@@ -185,10 +193,10 @@ Likewise, if a customer completes a booking through WhatsApp, your website and o
 ## 7. DOUBLE-BOOKING PROTECTION
 
 ### Main Heading:
-Built to protect your slots.
+No confusion between bookings. One slot, one confirmed booking.
 
-### How It Works:
-TurfFlow uses centralized booking logic and temporary slot holds to reduce booking conflicts across channels.
+### Supporting Subheading:
+When a customer picks a slot and begins payment, it is temporarily locked so nobody else can take it. If payment isn't completed in time, the slot automatically opens up again.
 
 ```
 [ Available Slot ] ──> [ Temporary Hold ] ──> [ Online Payment ] ──> [ Confirmed Booking ]
@@ -324,7 +332,9 @@ Choose the setup that fits your turf.
 
 ### PACKAGE 1: TurfFlow WhatsApp
 **Tagline:** Your WhatsApp, now your booking agent.  
-**Price:** ₹999/month  
+**Monthly Price:** ₹1,499/month  
+**Yearly Price:** ₹13,999/year (Save over 22%)  
+**Trial:** Try TurfFlow FREE for 30 Days (Full access, no software subscription fee during trial)  
 **Target:** For turf owners who want automated WhatsApp booking without a customer-facing website.
 
 **Includes:**
@@ -350,7 +360,9 @@ Choose the setup that fits your turf.
 
 ### PACKAGE 2: TurfFlow Complete
 **Tagline:** Website + WhatsApp + Dashboard.  
-**Price:** ₹2,499/month  
+**Monthly Price:** ₹2,499/month  
+**Yearly Price:** ₹19,999/year (Save 33%)  
+**Trial:** Try TurfFlow FREE for 30 Days (Full access, no software subscription fee during trial)  
 **Target:** For turf owners who want a complete online booking experience.
 
 **Includes:**
@@ -371,13 +383,16 @@ Choose the setup that fits your turf.
 
 | Feature | TurfFlow WhatsApp | TurfFlow Complete |
 | :--- | :---: | :---: |
-| **WhatsApp Booking Agent** | Yes | Yes |
+| **30-Day Free Trial** | ₹0 (Full Access) | ₹0 (Full Access) |
+| **Monthly Plan** | ₹1,499 / mo | ₹2,499 / mo |
+| **Yearly Plan (Annual Billing)** | ₹13,999 / yr | ₹19,999 / yr |
 | **Online Booking Website** | No | Yes |
 | **Website Booking** | No | Yes |
-| **WhatsApp Booking** | Yes | Yes |
+| **Website & WhatsApp Availability Sync** | No | Yes |
+| **WhatsApp Booking Agent** | Yes | Yes |
 | **Real-Time Availability** | Yes | Yes |
 | **Slot Management** | Yes | Yes |
-| **Temporary Slot Locking** | Yes | Yes |
+| **Smart Slot Locking** | Yes | Yes |
 | **Razorpay Payments** | Yes | Yes |
 | **Booking Confirmation** | Yes | Yes |
 | **Customer Management** | Yes | Yes |
@@ -387,6 +402,8 @@ Choose the setup that fits your turf.
 | **Owner Dashboard** | Yes | Yes |
 | **Automated Notifications** | Yes | Yes |
 | **Centralized Booking System** | Yes | Yes |
+| **Prepayment Required** | None (Zero Upfront) | None (Zero Upfront) |
+| **Commitment** | Cancel Anytime | Cancel Anytime |
 | **TurfFlow Booking Commission** | 0% | 0% |
 
 ---
@@ -394,24 +411,23 @@ Choose the setup that fits your turf.
 ## 14. PRICING & SPECIAL OFFER SECTION
 
 ### Main Heading:
-Completely free for the first 2 months.
+Try TurfFlow FREE for 30 Days
 
 ### Supporting Subheading:
-Full software access with zero software fees for 60 days. No prepayments, no upfront deposits, and cancel anytime with zero lock-in.
+Full access to your selected plan. No software subscription fee during the trial. No prepayments, no upfront deposits, and cancel anytime with zero lock-in.
 
 ### Core Pricing Structure:
-* **First 2 Months (60 Days):**  
-  **₹0 software fee** (Enjoy full, unrestricted access to your chosen software package with zero software fees for 60 days)
+* **Plan Pricing Table:**
+  * **TurfFlow WhatsApp:** ₹1,499/month (or ₹13,999/year)
+  * **TurfFlow Complete:** ₹2,499/month (or ₹19,999/year)
+* **30-Day Free Trial:**  
+  **₹0 software fee** (Enjoy full, unrestricted access to your chosen software package with zero software fees for 30 days)
 * **Zero Prepayments:**  
   **No prepayments or advance payment required.** Get started with ₹0 upfront cost.
 * **Flexibility Guarantee:**  
   **Cancel anytime.** No long-term lock-in contracts or commitments.
-* **Standard Monthly Pricing (After Initial 60 Days):**  
-  * **TurfFlow WhatsApp:** ₹999/month  
-  * **TurfFlow Complete:** ₹2,499/month  
-
-### Zero Booking Commission:
-**TurfFlow does not charge a per-booking software commission (0% commission).** Keep 100% of your booking revenues without per-ticket software deductions.
+* **Zero Booking Commission:**
+  **TurfFlow does not charge a per-booking software commission (0% commission).** Keep 100% of your booking revenues without per-ticket software deductions.
 
 ### Clear Transparency Note:
 Third-party charges such as payment gateway fees (e.g. Razorpay standard transaction rates), hosting/infrastructure costs, and other external service costs may apply separately depending on usage and configuration.
